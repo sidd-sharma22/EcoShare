@@ -1,0 +1,797 @@
+/* ==================================================
+   EcoShare - Login & Authentication Styles
+   ================================================== */
+
+/* ==================================================
+   1. DESIGN TOKENS
+   ================================================== */
+
+:root {
+  /* ----------------------------------------------
+       COLORS
+    ---------------------------------------------- */
+
+  --color-primary: #538d22;
+  --color-primary-dark: #245501;
+  --color-primary-deep: #1a4301;
+  --color-primary-darkest: #143601;
+
+  --color-secondary: #73a942;
+  --color-accent: #aad576;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-text: #000000;
+  --color-text-secondary: #555555;
+  --color-text-muted: #777777;
+
+  --color-background: #ffffff;
+  --color-background-soft: #f5f8ef;
+  --color-background-green: #edf5df;
+
+  --color-border: #d9e3c9;
+  --color-border-light: #e4ebd8;
+
+  --color-error: #c62828;
+  --color-success: #2e7d32;
+
+  /* ----------------------------------------------
+       TYPOGRAPHY
+    ---------------------------------------------- */
+
+  --font-family: Arial, Helvetica, sans-serif;
+
+  --font-xs: 11px;
+  --font-sm: 12px;
+  --font-base: 13px;
+  --font-md: 14px;
+  --font-lg: 16px;
+  --font-xl: 18px;
+  --font-2xl: 24px;
+  --font-3xl: 30px;
+  --font-4xl: 38px;
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-base: 1.6;
+  --line-height-relaxed: 1.75;
+  --line-height-heading: 1.2;
+
+  /* ----------------------------------------------
+       SPACING
+    ---------------------------------------------- */
+
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 14px;
+  --space-7: 15px;
+  --space-8: 16px;
+  --space-9: 18px;
+  --space-10: 20px;
+  --space-11: 24px;
+  --space-12: 25px;
+  --space-13: 28px;
+  --space-14: 30px;
+  --space-15: 35px;
+  --space-16: 40px;
+  --space-17: 45px;
+  --space-18: 50px;
+
+  /* ----------------------------------------------
+       BORDER RADIUS
+    ---------------------------------------------- */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 15px;
+  --radius-3xl: 20px;
+  --radius-pill: 30px;
+  --radius-circle: 50%;
+
+  /* ----------------------------------------------
+       BORDERS
+    ---------------------------------------------- */
+
+  --border-width: 1px;
+  --border-thick: 2px;
+
+  /* ----------------------------------------------
+       SHADOWS
+    ---------------------------------------------- */
+
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+
+  --shadow-primary: 0 8px 22px rgba(83, 141, 34, 0.18);
+
+  /* ----------------------------------------------
+       TRANSITIONS
+    ---------------------------------------------- */
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* ----------------------------------------------
+       AUTH LAYOUT
+    ---------------------------------------------- */
+
+  --auth-width: 900px;
+  --auth-min-height: 560px;
+
+  --auth-left-width: 45%;
+  --auth-right-width: 55%;
+
+  --auth-content-width: 380px;
+}
+
+/* ==================================================
+   2. RESET
+   ================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--space-10);
+
+  font-family: var(--font-family);
+
+  color: var(--color-text);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-background-soft),
+    var(--color-background-green)
+  );
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* ==================================================
+   3. MAIN LOGIN CONTAINER
+   ================================================== */
+
+.login-container {
+  width: 100%;
+  max-width: var(--auth-width);
+
+  min-height: var(--auth-min-height);
+
+  display: flex;
+
+  background: var(--color-white);
+
+  border-radius: var(--radius-3xl);
+
+  overflow: hidden;
+
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================================================
+   4. LEFT SECTION
+   ================================================== */
+
+.login-left {
+  width: var(--auth-left-width);
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--space-18);
+
+  text-align: center;
+
+  background: linear-gradient(
+    145deg,
+    var(--color-background-green),
+    var(--color-accent)
+  );
+}
+
+/* ==================================================
+   5. BRAND
+   ================================================== */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  color: var(--color-primary-darkest);
+}
+
+.brand img {
+  width: 180px;
+  height: 180px;
+
+  object-fit: contain;
+
+  margin-bottom: var(--space-1);
+}
+
+.brand h1 {
+  color: var(--color-primary-darkest);
+
+  font-size: var(--font-4xl);
+
+  font-weight: var(--font-weight-bold);
+
+  letter-spacing: 1px;
+}
+
+/* ==================================================
+   6. LOGIN INTRO
+   ================================================== */
+
+.login-intro {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.tagline {
+  max-width: 330px;
+
+  margin-top: var(--space-10);
+
+  color: var(--color-primary-deep);
+
+  font-size: var(--font-xl);
+
+  font-weight: var(--font-weight-semibold);
+
+  line-height: 1.5;
+}
+
+.description {
+  max-width: 300px;
+
+  margin-top: var(--space-6);
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-md);
+
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==================================================
+   7. BACK TO HOME
+   ================================================== */
+
+.back-home {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  margin-top: var(--space-14);
+
+  color: var(--color-primary-dark);
+
+  font-size: var(--font-sm);
+
+  font-weight: var(--font-weight-semibold);
+
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.back-home:hover {
+  color: var(--color-primary-darkest);
+
+  transform: translateX(-3px);
+}
+
+/* ==================================================
+   8. RIGHT SECTION
+   ================================================== */
+
+.login-right {
+  width: var(--auth-right-width);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--space-18);
+
+  background: var(--color-white);
+}
+
+.login-box {
+  width: 100%;
+  max-width: var(--auth-content-width);
+}
+
+/* ==================================================
+   9. LOGIN HEADING
+   ================================================== */
+
+.login-heading {
+  margin-bottom: var(--space-14);
+}
+
+.login-box h2 {
+  margin-bottom: var(--space-2);
+
+  color: var(--color-black);
+
+  font-size: var(--font-3xl);
+
+  line-height: var(--line-height-heading);
+
+  font-weight: var(--font-weight-bold);
+}
+
+.login-subtitle {
+  color: var(--color-text-muted);
+
+  font-size: var(--font-md);
+}
+
+/* ==================================================
+   10. INPUT GROUP
+   ================================================== */
+
+.input-group {
+  margin-bottom: var(--space-10);
+}
+
+.input-group label {
+  display: block;
+
+  margin-bottom: var(--space-3);
+
+  color: var(--color-black);
+
+  font-size: var(--font-md);
+
+  font-weight: var(--font-weight-semibold);
+}
+
+.input-group input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 var(--space-5);
+
+  border: var(--border-width) solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  outline: none;
+
+  background: var(--color-white);
+
+  color: var(--color-black);
+
+  font-size: var(--font-md);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.input-group input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input-group input:hover {
+  border-color: var(--color-secondary);
+}
+
+.input-group input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 3px rgba(83, 141, 34, 0.14);
+}
+
+/* ==================================================
+   11. PASSWORD LABEL
+   ================================================== */
+
+.password-label {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-label a {
+  color: var(--color-primary-dark);
+
+  font-size: var(--font-xs);
+
+  font-weight: var(--font-weight-semibold);
+
+  transition: color var(--transition-fast);
+}
+
+.password-label a:hover {
+  color: var(--color-primary-darkest);
+
+  text-decoration: underline;
+}
+
+/* ==================================================
+   12. PASSWORD CONTAINER
+   ================================================== */
+
+.password-container {
+  position: relative;
+}
+
+.password-container input {
+  padding-right: 65px;
+}
+
+.toggle-password {
+  position: absolute;
+
+  top: 50%;
+  right: var(--space-4);
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--color-primary-dark);
+
+  font-size: var(--font-xs);
+
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+
+  transition: color var(--transition-fast);
+}
+
+.toggle-password:hover {
+  color: var(--color-primary-darkest);
+}
+
+/* ==================================================
+   13. REMEMBER ME
+   ================================================== */
+
+.remember {
+  margin-bottom: var(--space-10);
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-base);
+}
+
+.remember label {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: var(--space-2);
+
+  cursor: pointer;
+}
+
+.remember input {
+  width: 15px;
+  height: 15px;
+
+  accent-color: var(--color-primary);
+
+  cursor: pointer;
+}
+
+/* ==================================================
+   14. LOGIN BUTTON
+   ================================================== */
+
+.login-btn {
+  width: 100%;
+  height: 48px;
+
+  border: none;
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-primary);
+
+  color: var(--color-white);
+
+  font-size: var(--font-md);
+
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.login-btn:hover {
+  background: var(--color-primary-dark);
+
+  transform: translateY(-1px);
+
+  box-shadow: var(--shadow-primary);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+.login-btn:focus-visible {
+  outline: var(--border-thick) solid var(--color-primary);
+
+  outline-offset: 3px;
+}
+
+/* ==================================================
+   15. FORM MESSAGE
+   ================================================== */
+
+.form-message,
+#message,
+#registerMessage {
+  min-height: 18px;
+
+  margin-top: var(--space-4);
+
+  text-align: center;
+
+  font-size: var(--font-base);
+}
+
+/* ==================================================
+   16. DIVIDER
+   ================================================== */
+
+.divider {
+  display: flex;
+
+  align-items: center;
+
+  margin: var(--space-14) 0;
+
+  color: var(--color-text-muted);
+
+  font-size: var(--font-xs);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: var(--border-width);
+
+  background: var(--color-border);
+}
+
+.divider span {
+  padding: 0 var(--space-5);
+}
+
+/* ==================================================
+   17. REGISTER
+   ================================================== */
+
+.register {
+  text-align: center;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-md);
+}
+
+.register a {
+  color: var(--color-primary-dark);
+
+  font-weight: var(--font-weight-semibold);
+
+  transition: color var(--transition-fast);
+}
+
+.register a:hover {
+  color: var(--color-primary-darkest);
+
+  text-decoration: underline;
+}
+
+/* ==================================================
+   18. REGISTER PAGE SUPPORT
+   ================================================== */
+
+.register-card {
+  min-height: 600px;
+}
+
+.remember-row a {
+  color: var(--color-primary-dark);
+
+  font-weight: var(--font-weight-semibold);
+
+  text-decoration: none;
+}
+
+.remember-row a:hover {
+  color: var(--color-primary-darkest);
+
+  text-decoration: underline;
+}
+
+.register-card .form-group {
+  margin-bottom: var(--space-8);
+}
+
+/* ==================================================
+   19. RESPONSIVE - 750px
+   ================================================== */
+
+@media (max-width: 750px) {
+  body {
+    padding: var(--space-6);
+  }
+
+  .login-container {
+    width: 100%;
+
+    flex-direction: column;
+
+    min-height: auto;
+
+    border-radius: var(--radius-2xl);
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+  }
+
+  .login-left {
+    padding: var(--space-15) var(--space-10);
+  }
+
+  .description {
+    display: none;
+  }
+
+  .brand img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .brand h1 {
+    font-size: var(--font-2xl);
+  }
+
+  .tagline {
+    margin-top: var(--space-7);
+
+    font-size: var(--font-lg);
+  }
+
+  .back-home {
+    margin-top: var(--space-10);
+  }
+
+  .login-right {
+    padding: var(--space-15) var(--space-10);
+  }
+
+  .login-box {
+    max-width: 420px;
+  }
+}
+
+/* ==================================================
+   20. RESPONSIVE - 500px
+   ================================================== */
+
+@media (max-width: 500px) {
+  body {
+    padding: 0;
+
+    align-items: stretch;
+  }
+
+  .login-container {
+    min-height: 100vh;
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+  .login-left {
+    padding: var(--space-12) var(--space-8);
+  }
+
+  .login-right {
+    padding: var(--space-12) var(--space-8);
+  }
+
+  .brand img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .brand h1 {
+    font-size: var(--font-2xl);
+  }
+
+  .tagline {
+    max-width: 280px;
+
+    font-size: var(--font-md);
+  }
+
+  .login-box h2 {
+    font-size: var(--font-2xl);
+  }
+
+  .divider {
+    margin: var(--space-11) 0;
+  }
+}
+
+/* ==================================================
+   21. REGISTER RESPONSIVE
+   ================================================== */
+
+@media (max-width: 700px) {
+  .register-card {
+    min-height: auto;
+  }
+}

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Create an EcoShare account and join your community in sharing useful resources."
+    />
+
+    <title>EcoShare - Create Account</title>
+
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <!-- Authentication Styles -->
+
+    <link rel="stylesheet" href="/Phase 1/login.css" />
+
+    <link rel="stylesheet" href="/Phase 1/register.css" />
+  </head>
+
+  <body>
+    <!-- ==========================================
+         REGISTER PAGE
+    =========================================== -->
+
+    <main>
+      <section class="register-page">
+        <div class="register-card">
+          <!-- ======================================
+                     LEFT SECTION
+                ======================================= -->
+
+          <div class="register-left">
+            <!-- Logo -->
+
+            <a href="/Phase 1/index.html" aria-label="EcoShare Home">
+              <img
+                src="/assets/logo.png"
+                alt="EcoShare logo"
+                class="register-logo"
+              />
+            </a>
+
+            <!-- Heading -->
+
+            <h1>
+              Join
+              <span>EcoShare</span>
+            </h1>
+
+            <p class="register-description">
+              Become part of a community that believes sharing is better than
+              wasting.
+            </p>
+
+            <!-- Features -->
+
+            <div class="register-features">
+              <!-- Feature 1 -->
+
+              <div class="register-feature">
+                <div class="register-feature-icon">
+                  <i class="fa-solid fa-handshake"></i>
+                </div>
+
+                <div>
+                  <h3>Share & Connect</h3>
+
+                  <p>Connect with people and share useful resources.</p>
+                </div>
+              </div>
+
+              <!-- Feature 2 -->
+
+              <div class="register-feature">
+                <div class="register-feature-icon">
+                  <i class="fa-solid fa-recycle"></i>
+                </div>
+
+                <div>
+                  <h3>Reduce Waste</h3>
+
+                  <p>Give unused items a second life.</p>
+                </div>
+              </div>
+
+              <!-- Feature 3 -->
+
+              <div class="register-feature">
+                <div class="register-feature-icon">
+                  <i class="fa-solid fa-leaf"></i>
+                </div>
+
+                <div>
+                  <h3>Build a Greener Future</h3>
+
+                  <p>Make sustainable choices together.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================================
+                     RIGHT SECTION
+                ======================================= -->
+
+          <div class="register-right">
+            <div class="register-form-container">
+              <!-- Heading -->
+
+              <div class="register-heading">
+                <h2>Create Account</h2>
+
+                <p>Create your EcoShare account to get started.</p>
+              </div>
+
+              <!-- ==================================
+                             REGISTER FORM
+                        =================================== -->
+
+              <form id="registerForm" class="register-form" novalidate>
+                <!-- --------------------------------
+                                 FULL NAME
+                            --------------------------------- -->
+
+                <div class="register-form-group">
+                  <label for="name"> Full Name </label>
+
+                  <div class="register-input">
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Enter your full name"
+                      autocomplete="name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- --------------------------------
+                                 EMAIL
+                            --------------------------------- -->
+
+                <div class="register-form-group">
+                  <label for="registerEmail"> Email Address </label>
+
+                  <div class="register-input">
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                      type="email"
+                      id="registerEmail"
+                      name="email"
+                      placeholder="Enter your email"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- --------------------------------
+                                 PASSWORD
+                            --------------------------------- -->
+
+                <div class="register-form-group">
+                  <label for="registerPassword"> Password </label>
+
+                  <div class="register-input">
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                      type="password"
+                      id="registerPassword"
+                      name="password"
+                      placeholder="Create a password"
+                      autocomplete="new-password"
+                      required
+                    />
+
+                    <button
+                      type="button"
+                      id="toggleRegisterPassword"
+                      class="register-password-toggle"
+                      aria-label="Show password"
+                      aria-pressed="false"
+                    >
+                      <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- --------------------------------
+                                 CONFIRM PASSWORD
+                            --------------------------------- -->
+
+                <div class="register-form-group">
+                  <label for="confirmPassword"> Confirm Password </label>
+
+                  <div class="register-input">
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm your password"
+                      autocomplete="new-password"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- --------------------------------
+                                 TERMS
+                            --------------------------------- -->
+
+                <div class="register-terms">
+                  <label>
+                    <input type="checkbox" id="terms" name="terms" required />
+
+                    <span>
+                      I agree to the
+
+                      <a href="#"> Terms & Conditions </a>
+                    </span>
+                  </label>
+                </div>
+
+                <!-- --------------------------------
+                                 SUBMIT
+                            --------------------------------- -->
+
+                <button type="submit" class="register-submit">
+                  Create Account
+                </button>
+
+                <!-- Form Message -->
+
+                <p
+                  id="registerMessage"
+                  class="form-message"
+                  aria-live="polite"
+                ></p>
+              </form>
+
+              <!-- ==================================
+                             LOGIN LINK
+                        =================================== -->
+
+              <p class="register-login">
+                Already have an account?
+
+                <a href="/Phase 1/login.html"> Login </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript -->
+
+    <script src="/Phase 1/register.js"></script>
+  </body>
+</html>

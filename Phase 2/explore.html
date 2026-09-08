@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Explore resources available to borrow and share through EcoShare."
+    />
+
+    <title>Explore Resources | EcoShare</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <!-- Page Styles -->
+    <link rel="stylesheet" href="/Phase 2/explore.css" />
+  </head>
+
+  <body>
+    <!-- ==========================================
+       HEADER
+  ========================================== -->
+
+    <header class="header">
+      <div class="container">
+        <nav class="navbar" aria-label="Main navigation">
+          <a
+            href="/Phase 1/index.html"
+            class="logo"
+            aria-label="EcoShare Home"
+          >
+            <img src="/assets/logo.png" alt="EcoShare" />
+          </a>
+
+          <div class="nav-links" id="primary-navigation">
+            <a href="/Phase 1/index.html" class="nav-link"> Home </a>
+
+            <a href="explore.html" class="nav-link active" aria-current="page">
+              Explore
+            </a>
+
+            <a href="/Phase 1/index.html#how-it-works" class="nav-link">
+              How It Works
+            </a>
+
+            <a href="/Phase 1/index.html#about" class="nav-link"> About </a>
+
+            <a href="/Phase 1/index.html#contact" class="nav-link">
+              Contact
+            </a>
+
+            <a href="/Phase 1/login.html" class="login-nav-btn"> Login </a>
+          </div>
+
+          <button
+            type="button"
+            class="menu-btn"
+            id="menu-btn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="primary-navigation"
+          >
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ==========================================
+       MAIN
+  ========================================== -->
+
+    <main>
+      <!-- ==========================================
+         EXPLORE HERO
+    ========================================== -->
+
+      <section class="explore-hero">
+        <div class="container">
+          <div class="explore-hero-content">
+            <span class="explore-label">
+              <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+              Community Resources
+            </span>
+
+            <h1>Explore Resources</h1>
+
+            <p>
+              Find useful resources shared by people in your community. Borrow
+              what you need instead of buying something you may only use once.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+         RESOURCES
+    ========================================== -->
+
+      <section class="explore-section" id="explore-resources">
+        <div class="container">
+          <!-- CONTROLS -->
+
+          <div class="resource-controls">
+            <!-- SEARCH -->
+
+            <div class="explore-search">
+              <label for="resourceSearch" class="sr-only">
+                Search resources
+              </label>
+
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+
+                <input
+                  type="search"
+                  id="resourceSearch"
+                  placeholder="Search resources..."
+                  autocomplete="off"
+                />
+
+                <button type="button" class="search-btn" id="searchBtn">
+                  Search
+                </button>
+              </div>
+            </div>
+
+            <!-- FILTERS -->
+
+            <div class="filter-row">
+              <div class="filter-group">
+                <label for="categoryFilter"> Category </label>
+
+                <select id="categoryFilter">
+                  <option value="all">All Categories</option>
+
+                  <option value="electronics">Electronics</option>
+
+                  <option value="books">Books</option>
+
+                  <option value="tools">Tools</option>
+
+                  <option value="sports">Sports</option>
+
+                  <option value="others">Others</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label for="availabilityFilter"> Availability </label>
+
+                <select id="availabilityFilter">
+                  <option value="all">All Resources</option>
+
+                  <option value="available">Available</option>
+
+                  <option value="unavailable">Currently Borrowed</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESULTS HEADER -->
+
+          <div class="results-header">
+            <div>
+              <h2>Resources</h2>
+
+              <p id="resultsCount">Showing resources</p>
+            </div>
+
+            <div class="sort-group">
+              <label for="sortFilter"> Sort by </label>
+
+              <select id="sortFilter">
+                <option value="newest">Newest</option>
+
+                <option value="name-asc">Name: A–Z</option>
+
+                <option value="name-desc">Name: Z–A</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RESOURCE GRID -->
+
+          <div class="resource-grid" id="resourceGrid" aria-live="polite"></div>
+
+          <!-- EMPTY STATE -->
+
+          <div class="no-resources" id="noResources" hidden>
+            <div class="no-resources-icon">
+              <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+            </div>
+
+            <h3>No resources found</h3>
+
+            <p>Try changing your search or filters to find other resources.</p>
+
+            <button type="button" class="reset-filter-btn" id="resetFilters">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+         LEND CTA
+    ========================================== -->
+
+      <section class="explore-cta">
+        <div class="container">
+          <div class="explore-cta-content">
+            <div class="explore-cta-icon">
+              <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i>
+            </div>
+
+            <div class="explore-cta-text">
+              <h2>Have something useful to share?</h2>
+
+              <p>
+                Give your unused resources a second life by sharing them with
+                your community.
+              </p>
+            </div>
+
+            <a href="/Phase 1/login.html" class="primary-btn">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Lend a Resource
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================
+       FOOTER
+  ========================================== -->
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-brand">
+            <a
+              href="/Phase 1/index.html"
+              class="footer-logo"
+              aria-label="EcoShare Home"
+            >
+              <img src="/assets/logo.png" alt="EcoShare" />
+            </a>
+
+            <p>Share resources. Reduce waste. Build a better community.</p>
+          </div>
+
+          <div class="footer-bottom">
+            <p>&copy; 2026 EcoShare. All rights reserved.</p>
+
+            <p>Community-powered resource sharing.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/Phase 2/explore.js"></script>
+  </body>
+</html>
