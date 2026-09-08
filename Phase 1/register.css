@@ -1,0 +1,671 @@
+/* ==================================================
+   EcoShare - Register Page
+   ================================================== */
+
+/* ==================================================
+   1. REGISTER PAGE
+   ================================================== */
+
+.register-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 24px;
+
+  background:
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(170, 213, 118, 0.28),
+      transparent 32%
+    ),
+    var(--color-background-soft);
+}
+
+/* ==================================================
+   2. REGISTER CARD
+   ================================================== */
+
+.register-card {
+  width: 100%;
+  max-width: 900px;
+
+  display: grid;
+  grid-template-columns: 38% 62%;
+
+  overflow: hidden;
+
+  border: var(--border-width) solid var(--color-border-light);
+
+  border-radius: var(--radius-3xl);
+
+  background: var(--color-white);
+
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==================================================
+   3. LEFT SECTION
+   ================================================== */
+
+.register-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 42px;
+
+  background: linear-gradient(145deg, #f0f7e5 0%, var(--color-accent) 100%);
+}
+
+/* ==================================================
+   4. REGISTER LOGO
+   ================================================== */
+
+.register-logo {
+  width: 110px;
+  height: 110px;
+
+  display: block;
+
+  object-fit: contain;
+
+  align-self: center;
+
+  margin: 0 auto 30px;
+}
+
+/* ==================================================
+   5. LEFT HEADING
+   ================================================== */
+
+.register-left h1 {
+  margin: 0 0 16px;
+
+  color: var(--color-black);
+
+  font-size: 36px;
+  line-height: 1.12;
+
+  font-weight: var(--font-weight-bold);
+}
+
+.register-left h1 span {
+  display: block;
+
+  color: var(--color-primary);
+}
+
+/* ==================================================
+   6. LEFT DESCRIPTION
+   ================================================== */
+
+.register-left > p,
+.register-description {
+  max-width: 295px;
+
+  margin: 0 0 30px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* ==================================================
+   7. REGISTER FEATURES
+   ================================================== */
+
+.register-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* ==================================================
+   8. REGISTER FEATURE
+   ================================================== */
+
+.register-feature {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+}
+
+/* ==================================================
+   9. FEATURE ICON
+   ================================================== */
+
+.register-feature-icon {
+  width: 40px;
+  height: 40px;
+
+  min-width: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--color-white);
+
+  color: var(--color-primary-dark);
+
+  font-size: 16px;
+
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==================================================
+   10. FEATURE TEXT
+   ================================================== */
+
+.register-feature h3 {
+  margin: 0 0 3px;
+
+  color: var(--color-black);
+
+  font-size: 14px;
+  line-height: 1.35;
+
+  font-weight: var(--font-weight-semibold);
+}
+
+.register-feature p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* ==================================================
+   11. RIGHT SECTION
+   ================================================== */
+
+.register-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px 52px;
+
+  background: var(--color-white);
+}
+
+/* ==================================================
+   12. FORM CONTAINER
+   ================================================== */
+
+.register-form-container {
+  width: 100%;
+  max-width: 390px;
+
+  margin: 0 auto;
+}
+
+/* ==================================================
+   13. REGISTER HEADING
+   ================================================== */
+
+.register-heading {
+  margin-bottom: 25px;
+}
+
+.register-heading h2 {
+  margin: 0 0 7px;
+
+  color: var(--color-black);
+
+  font-size: 30px;
+  line-height: 1.2;
+
+  font-weight: var(--font-weight-bold);
+}
+
+.register-heading p {
+  margin: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ==================================================
+   14. REGISTER FORM
+   ================================================== */
+
+.register-form {
+  width: 100%;
+}
+
+/* ==================================================
+   15. FORM GROUP
+   ================================================== */
+
+.register-form-group {
+  margin-bottom: 17px;
+}
+
+.register-form-group > label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--color-black);
+
+  font-size: 13px;
+
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ==================================================
+   16. INPUT WRAPPER
+   ================================================== */
+
+.register-input {
+  position: relative;
+
+  width: 100%;
+}
+
+/* ==================================================
+   17. INPUT ICON
+   ================================================== */
+
+.register-input > i {
+  position: absolute;
+
+  top: 50%;
+  left: 15px;
+
+  transform: translateY(-50%);
+
+  color: var(--color-text-muted);
+
+  font-size: 14px;
+
+  pointer-events: none;
+
+  transition: color var(--transition-fast);
+}
+
+/* ==================================================
+   18. INPUT
+   ================================================== */
+
+.register-input input {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 46px 0 42px;
+
+  border: var(--border-width) solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  outline: none;
+
+  background: var(--color-white);
+
+  color: var(--color-black);
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* ==================================================
+   19. INPUT PLACEHOLDER
+   ================================================== */
+
+.register-input input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ==================================================
+   20. INPUT HOVER
+   ================================================== */
+
+.register-input input:hover {
+  border-color: var(--color-secondary);
+}
+
+/* ==================================================
+   21. INPUT FOCUS
+   ================================================== */
+
+.register-input input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 3px rgba(83, 141, 34, 0.12);
+}
+
+.register-input:focus-within > i {
+  color: var(--color-primary);
+}
+
+/* ==================================================
+   22. PASSWORD TOGGLE
+   ================================================== */
+
+.register-password-toggle {
+  position: absolute;
+
+  top: 50%;
+  right: 8px;
+
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--color-text-muted);
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.register-password-toggle:hover {
+  color: var(--color-primary);
+
+  background: var(--color-background-green);
+}
+
+.register-password-toggle:focus-visible {
+  outline: var(--border-thick) solid var(--color-primary);
+
+  outline-offset: 2px;
+}
+
+/* ==================================================
+   23. TERMS
+   ================================================== */
+
+.register-terms {
+  margin: 4px 0 22px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 12px;
+}
+
+.register-terms label {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 9px;
+
+  cursor: pointer;
+
+  line-height: 1.5;
+}
+
+.register-terms input {
+  width: 15px;
+  height: 15px;
+
+  flex-shrink: 0;
+
+  margin-top: 1px;
+
+  accent-color: var(--color-primary);
+
+  cursor: pointer;
+}
+
+.register-terms a {
+  color: var(--color-primary-dark);
+
+  font-weight: var(--font-weight-semibold);
+
+  text-decoration: none;
+
+  transition: color var(--transition-fast);
+}
+
+.register-terms a:hover {
+  color: var(--color-primary-darkest);
+
+  text-decoration: underline;
+}
+
+/* ==================================================
+   24. CREATE ACCOUNT BUTTON
+   ================================================== */
+
+.register-submit {
+  width: 100%;
+  height: 46px;
+
+  border: none;
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-primary);
+
+  color: var(--color-white);
+
+  font-family: inherit;
+  font-size: 14px;
+
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.register-submit:hover {
+  background: var(--color-primary-dark);
+
+  transform: translateY(-1px);
+
+  box-shadow: var(--shadow-primary);
+}
+
+.register-submit:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+.register-submit:focus-visible {
+  outline: var(--border-thick) solid var(--color-primary);
+
+  outline-offset: 3px;
+}
+
+/* ==================================================
+   25. REGISTER MESSAGE
+   ================================================== */
+
+#registerMessage {
+  min-height: 18px;
+
+  margin-top: 10px;
+
+  text-align: center;
+
+  color: var(--color-text-secondary);
+
+  font-size: 12px;
+}
+
+/* ==================================================
+   26. LOGIN LINK
+   ================================================== */
+
+.register-login {
+  margin-top: 22px;
+
+  text-align: center;
+
+  color: var(--color-text-secondary);
+
+  font-size: 13px;
+}
+
+.register-login a {
+  color: var(--color-primary-dark);
+
+  font-weight: var(--font-weight-semibold);
+
+  text-decoration: none;
+
+  transition: color var(--transition-fast);
+}
+
+.register-login a:hover {
+  color: var(--color-primary-darkest);
+
+  text-decoration: underline;
+}
+
+/* ==================================================
+   27. RESPONSIVE - 900px
+   ================================================== */
+
+@media (max-width: 900px) {
+  .register-card {
+    max-width: 850px;
+  }
+
+  .register-left {
+    padding: 36px;
+  }
+
+  .register-right {
+    padding: 42px;
+  }
+}
+
+/* ==================================================
+   28. RESPONSIVE - 800px
+   ================================================== */
+
+@media (max-width: 800px) {
+  .register-page {
+    padding: 30px 20px;
+  }
+
+  .register-card {
+    max-width: 520px;
+
+    grid-template-columns: 1fr;
+  }
+
+  .register-left {
+    display: none;
+  }
+
+  .register-right {
+    padding: 42px 36px;
+  }
+
+  .register-form-container {
+    max-width: 390px;
+  }
+}
+
+/* ==================================================
+   29. RESPONSIVE - 500px
+   ================================================== */
+
+@media (max-width: 500px) {
+  .register-page {
+    padding: 18px 12px;
+  }
+
+  .register-card {
+    border-radius: var(--radius-xl);
+
+    box-shadow: var(--shadow-md);
+  }
+
+  .register-right {
+    padding: 32px 22px;
+  }
+
+  .register-heading {
+    margin-bottom: 22px;
+  }
+
+  .register-heading h2 {
+    font-size: 25px;
+  }
+
+  .register-heading p {
+    font-size: 13px;
+  }
+
+  .register-form-group {
+    margin-bottom: 15px;
+  }
+
+  .register-form-group > label {
+    font-size: 12px;
+  }
+
+  .register-input input {
+    height: 44px;
+
+    font-size: 13px;
+  }
+
+  .register-submit {
+    height: 45px;
+  }
+}
+
+/* ==================================================
+   30. RESPONSIVE - VERY SMALL SCREENS
+   ================================================== */
+
+@media (max-width: 360px) {
+  .register-page {
+    padding: 10px;
+  }
+
+  .register-right {
+    padding: 28px 18px;
+  }
+
+  .register-heading h2 {
+    font-size: 23px;
+  }
+
+  .register-terms {
+    font-size: 11px;
+  }
+
+  .register-login {
+    font-size: 12px;
+  }
+}

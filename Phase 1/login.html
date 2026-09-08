@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Login to your EcoShare account and start sharing resources with your community."
+    />
+
+    <title>EcoShare - Login</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/Phase 1/login.css" />
+  </head>
+
+  <body>
+    <main class="login-container">
+      <!-- ==========================================
+             LEFT SIDE
+        =========================================== -->
+
+      <section class="login-left">
+        <a href="/Phase 1/index.html" class="brand" aria-label="EcoShare Home">
+          <img src="/assets/logo.png" alt="EcoShare logo" />
+
+          <h1>EcoShare</h1>
+        </a>
+
+        <div class="login-intro">
+          <p class="tagline">
+            Share Resources. Reduce Waste. Build a Greener Future.
+          </p>
+
+          <p class="description">
+            Connect with your community and share resources instead of wasting
+            them.
+          </p>
+        </div>
+
+        <a href="/Phase 1/index.html" class="back-home">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </section>
+
+      <!-- ==========================================
+             RIGHT SIDE
+        =========================================== -->
+
+      <section class="login-right">
+        <div class="login-box">
+          <!-- Heading -->
+
+          <div class="login-heading">
+            <h2>Welcome Back</h2>
+
+            <p class="login-subtitle">Login to continue to EcoShare</p>
+          </div>
+
+          <!-- ======================================
+                     LOGIN FORM
+                ======================================= -->
+
+          <form id="loginForm" novalidate>
+            <!-- Email -->
+
+            <div class="input-group">
+              <label for="email"> Email Address </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <!-- Password -->
+
+            <div class="input-group">
+              <div class="password-label">
+                <label for="password"> Password </label>
+
+                <a href="#" id="forgotPassword"> Forgot Password? </a>
+              </div>
+
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="toggle-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me -->
+
+            <div class="remember">
+              <label>
+                <input type="checkbox" id="remember" name="remember" />
+
+                <span> Remember me </span>
+              </label>
+            </div>
+
+            <!-- Login Button -->
+
+            <button type="submit" class="login-btn">Login</button>
+
+            <!-- Message -->
+
+            <p id="message" class="form-message" aria-live="polite"></p>
+          </form>
+
+          <!-- ======================================
+                     DIVIDER
+                ======================================= -->
+
+          <div class="divider">
+            <span> OR </span>
+          </div>
+
+          <!-- ======================================
+                     REGISTER
+                ======================================= -->
+
+          <p class="register">
+            Don't have an account?
+
+            <a href="/Phase 1/register.html"> Create Account </a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript -->
+
+    <script src="/Phase 1/login.js"></script>
+  </body>
+</html>
