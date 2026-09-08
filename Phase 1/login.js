@@ -1,206 +1,98 @@
 // ==========================================
-// EcoShare Login JavaScript
+// EcoShare - Login
 // ==========================================
 
-// ==========================================
-// 1. GET HTML ELEMENTS
-// ==========================================
+(() => {
+  "use strict";
 
-const loginForm = document.getElementById("loginForm");
+  const form = document.getElementById("loginForm");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  const message = document.getElementById("message");
+  const forgotPassword = document.getElementById("forgotPassword");
 
-const emailInput = document.getElementById("email");
-
-const passwordInput = document.getElementById("password");
-
-const togglePassword = document.getElementById("togglePassword");
-
-const message = document.getElementById("message");
-
-const forgotPassword = document.getElementById("forgotPassword");
-
-// ==========================================
-// 2. MESSAGE HELPER
-// ==========================================
-
-function showMessage(text, type = "error") {
-  if (!message) return;
-
-  message.textContent = text;
-
-  if (type === "success") {
-    message.style.color = "#245501";
-  } else {
-    message.style.color = "#c62828";
+  function showMessage(text, type = "error") {
+    if (!message) return;
+    message.textContent = text;
+    message.style.color = type === "success" ? "var(--color-success, #2e7d32)" : "var(--color-error, #c62828)";
   }
-}
 
-// ==========================================
-// 3. SHOW / HIDE PASSWORD
-// ==========================================
+  function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
 
-if (togglePassword && passwordInput) {
-  togglePassword.addEventListener("click", () => {
-    const isPassword = passwordInput.type === "password";
-
-    if (isPassword) {
-      passwordInput.type = "text";
-
-      togglePassword.textContent = "Hide";
-
-      togglePassword.setAttribute("aria-label", "Hide password");
-    } else {
-      passwordInput.type = "password";
-
-      togglePassword.textContent = "Show";
-
-      togglePassword.setAttribute("aria-label", "Show password");
-    }
+  togglePassword?.addEventListener("click", () => {
+    const visible = passwordInput.type === "text";
+    passwordInput.type = visible ? "password" : "text";
+    togglePassword.textContent = visible ? "Show" : "Hide";
   });
-}
 
-// ==========================================
-// 4. LOGIN
-// ==========================================
-
-if (loginForm) {
-  loginForm.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // --------------------------------------
-    // GET VALUES
-    // --------------------------------------
-
-    const email = emailInput ? emailInput.value.trim() : "";
-
-    const password = passwordInput ? passwordInput.value : "";
-
-    // --------------------------------------
-    // CLEAR PREVIOUS MESSAGE
-    // --------------------------------------
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    const submit = form.querySelector('button[type="submit"]');
 
     showMessage("");
 
-    // --------------------------------------
-    // VALIDATE EMAIL
-    // --------------------------------------
-
-    if (email === "") {
-      showMessage("Please enter your email address.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
-      return;
-    }
-
-    // --------------------------------------
-    // VALIDATE PASSWORD
-    // --------------------------------------
-
-    if (password === "") {
-      showMessage("Please enter your password.");
-
-      if (passwordInput) {
-        passwordInput.focus();
-      }
-
-      return;
-    }
-
-    // --------------------------------------
-    // BASIC EMAIL VALIDATION
-    // --------------------------------------
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
+    if (!validEmail(email)) {
       showMessage("Please enter a valid email address.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
+      emailInput.focus();
       return;
     }
 
-    // --------------------------------------
-    // TEMPORARY FRONTEND LOGIN
-    // --------------------------------------
+    if (!password) {
+      showMessage("Please enter your password.");
+      passwordInput.focus();
+      return;
+    }
 
-    /*
-                IMPORTANT:
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = "Logging in...";
+    }
 
-                This is NOT real authentication.
+    try {
+      const { error } = await window.EcoShareSupabase.signIn(email, password);
+      if (error) throw error;
 
-                Later this section will send the
-                credentials to the backend API.
+      showMessage("Login successful. Redirecting...", "success");
 
-                Example:
+      const redirect = new URLSearchParams(window.location.search).get("redirect");
+      window.setTimeout(() => {
+        window.location.href = redirect || "/Phase 1/index.html";
+      }, 350);
+    } catch (error) {
+      console.error("Login failed:", error);
+      showMessage(error.message || "Unable to log in. Please check your credentials.");
 
-                fetch("/api/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
-                });
-            */
-
-    showMessage("Login successful!", "success");
-
-    // Do NOT log the password.
-    console.log("Login attempted for:", email);
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = "Login";
+      }
+    }
   });
-}
 
-// ==========================================
-// 5. FORGOT PASSWORD
-// ==========================================
-
-if (forgotPassword) {
-  forgotPassword.addEventListener("click", (event) => {
+  forgotPassword?.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    const email = emailInput ? emailInput.value.trim() : "";
+    const email = emailInput.value.trim();
 
-    // --------------------------------------
-    // EMAIL REQUIRED
-    // --------------------------------------
-
-    if (email === "") {
-      showMessage("Enter your email address first.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
+    if (!validEmail(email)) {
+      showMessage("Enter a valid email address first.");
+      emailInput.focus();
       return;
     }
 
-    // --------------------------------------
-    // BASIC EMAIL VALIDATION
-    // --------------------------------------
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
-      showMessage("Please enter a valid email address.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
-      return;
+    try {
+      const { error } = await window.EcoShareSupabase.resetPassword(email);
+      if (error) throw error;
+      showMessage("Password reset instructions have been sent to your email.", "success");
+    } catch (error) {
+      console.error("Password reset failed:", error);
+      showMessage(error.message || "Unable to send password reset email.");
     }
-
-    // --------------------------------------
-    // TEMPORARY RESET MESSAGE
-    // --------------------------------------
-
-    showMessage("Password reset link will be sent to your email.", "success");
   });
-}
+})();

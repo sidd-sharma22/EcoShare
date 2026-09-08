@@ -1,292 +1,103 @@
 // ==========================================
-// EcoShare Register JavaScript
+// EcoShare - Registration
 // ==========================================
 
-// ==========================================
-// 1. GET HTML ELEMENTS
-// ==========================================
+(() => {
+  "use strict";
 
-const menuBtn = document.getElementById("menu-btn");
+  const form = document.getElementById("registerForm");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("registerEmail");
+  const passwordInput = document.getElementById("registerPassword");
+  const confirmInput = document.getElementById("confirmPassword");
+  const termsInput = document.getElementById("terms");
+  const togglePassword = document.getElementById("toggleRegisterPassword");
+  const message = document.getElementById("registerMessage");
 
-const navLinks = document.querySelector(".nav-links");
-
-const registerPassword = document.getElementById("registerPassword");
-
-const toggleRegisterPassword = document.getElementById(
-  "toggleRegisterPassword",
-);
-
-const registerForm = document.getElementById("registerForm");
-
-const registerMessage = document.getElementById("registerMessage");
-
-const nameInput = document.getElementById("name");
-
-const emailInput = document.getElementById("registerEmail");
-
-const confirmPasswordInput = document.getElementById("confirmPassword");
-
-const termsInput = document.getElementById("terms");
-
-// ==========================================
-// 2. MESSAGE HELPER
-// ==========================================
-
-function showRegisterMessage(text, type = "error") {
-  if (!registerMessage) return;
-
-  registerMessage.textContent = text;
-
-  if (type === "success") {
-    registerMessage.style.color = "#245501";
-  } else {
-    registerMessage.style.color = "#c62828";
+  function showMessage(text, type = "error") {
+    if (!message) return;
+    message.textContent = text;
+    message.style.color = type === "success" ? "var(--color-success, #2e7d32)" : "var(--color-error, #c62828)";
   }
-}
 
-// ==========================================
-// 3. MOBILE NAVIGATION
-// ==========================================
+  function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
 
-if (menuBtn && navLinks) {
-  menuBtn.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("show");
-
-    menuBtn.setAttribute("aria-expanded", String(isOpen));
-
-    menuBtn.setAttribute(
-      "aria-label",
-      isOpen ? "Close navigation menu" : "Open navigation menu",
-    );
+  togglePassword?.addEventListener("click", () => {
+    const visible = passwordInput.type === "text";
+    passwordInput.type = visible ? "password" : "text";
+    togglePassword.setAttribute("aria-pressed", String(!visible));
   });
 
-  // ------------------------------------------
-  // CLOSE NAVIGATION AFTER CLICKING A LINK
-  // ------------------------------------------
-
-  const navigationLinks = navLinks.querySelectorAll("a");
-
-  navigationLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("show");
-
-      menuBtn.setAttribute("aria-expanded", "false");
-
-      menuBtn.setAttribute("aria-label", "Open navigation menu");
-    });
-  });
-}
-
-// ==========================================
-// 4. PASSWORD TOGGLE
-// ==========================================
-
-if (registerPassword && toggleRegisterPassword) {
-  toggleRegisterPassword.addEventListener("click", () => {
-    const icon = toggleRegisterPassword.querySelector("i");
-
-    const isPassword = registerPassword.type === "password";
-
-    if (isPassword) {
-      registerPassword.type = "text";
-
-      if (icon) {
-        icon.classList.remove("fa-eye");
-
-        icon.classList.add("fa-eye-slash");
-      }
-
-      toggleRegisterPassword.setAttribute("aria-label", "Hide password");
-
-      toggleRegisterPassword.setAttribute("aria-pressed", "true");
-    } else {
-      registerPassword.type = "password";
-
-      if (icon) {
-        icon.classList.remove("fa-eye-slash");
-
-        icon.classList.add("fa-eye");
-      }
-
-      toggleRegisterPassword.setAttribute("aria-label", "Show password");
-
-      toggleRegisterPassword.setAttribute("aria-pressed", "false");
-    }
-  });
-}
-
-// ==========================================
-// 5. REGISTER FORM
-// ==========================================
-
-if (registerForm) {
-  registerForm.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // --------------------------------------
-    // GET FORM VALUES
-    // --------------------------------------
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    const confirm = confirmInput.value;
+    const submit = form.querySelector('button[type="submit"]');
 
-    const name = nameInput ? nameInput.value.trim() : "";
-
-    const email = emailInput ? emailInput.value.trim() : "";
-
-    const password = registerPassword ? registerPassword.value : "";
-
-    const confirmPassword = confirmPasswordInput
-      ? confirmPasswordInput.value
-      : "";
-
-    const termsAccepted = termsInput ? termsInput.checked : false;
-
-    // --------------------------------------
-    // CLEAR PREVIOUS MESSAGE
-    // --------------------------------------
-
-    showRegisterMessage("");
-
-    // --------------------------------------
-    // NAME VALIDATION
-    // --------------------------------------
-
-    if (name === "") {
-      showRegisterMessage("Please enter your full name.");
-
-      if (nameInput) {
-        nameInput.focus();
-      }
-
-      return;
-    }
-
-    // --------------------------------------
-    // NAME LENGTH
-    // --------------------------------------
+    showMessage("");
 
     if (name.length < 2) {
-      showRegisterMessage("Name must contain at least 2 characters.");
-
-      if (nameInput) {
-        nameInput.focus();
-      }
-
+      showMessage("Please enter your full name.");
+      nameInput.focus();
       return;
     }
 
-    // --------------------------------------
-    // EMAIL VALIDATION
-    // --------------------------------------
-
-    if (email === "") {
-      showRegisterMessage("Please enter your email address.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
+    if (!validEmail(email)) {
+      showMessage("Please enter a valid email address.");
+      emailInput.focus();
       return;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
-      showRegisterMessage("Please enter a valid email address.");
-
-      if (emailInput) {
-        emailInput.focus();
-      }
-
+    if (password.length < 6) {
+      showMessage("Password must contain at least 6 characters.");
+      passwordInput.focus();
       return;
     }
 
-    // --------------------------------------
-    // PASSWORD LENGTH
-    // --------------------------------------
-
-    if (password.length < 8) {
-      showRegisterMessage("Password must be at least 8 characters.");
-
-      if (registerPassword) {
-        registerPassword.focus();
-      }
-
+    if (password !== confirm) {
+      showMessage("Passwords do not match.");
+      confirmInput.focus();
       return;
     }
 
-    // --------------------------------------
-    // PASSWORD CONFIRMATION
-    // --------------------------------------
-
-    if (confirmPassword === "") {
-      showRegisterMessage("Please confirm your password.");
-
-      if (confirmPasswordInput) {
-        confirmPasswordInput.focus();
-      }
-
+    if (!termsInput.checked) {
+      showMessage("Please agree to the Terms & Conditions.");
       return;
     }
 
-    if (password !== confirmPassword) {
-      showRegisterMessage("Passwords do not match.");
-
-      if (confirmPasswordInput) {
-        confirmPasswordInput.focus();
-      }
-
-      return;
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = "Creating Account...";
     }
 
-    // --------------------------------------
-    // TERMS
-    // --------------------------------------
+    try {
+      const { data, error } = await window.EcoShareSupabase.signUp(email, password, name);
+      if (error) throw error;
 
-    if (!termsAccepted) {
-      showRegisterMessage("Please agree to the Terms & Conditions.");
-
-      if (termsInput) {
-        termsInput.focus();
+      if (data.session) {
+        showMessage("Account created. Redirecting...", "success");
+        window.setTimeout(() => {
+          window.location.href = "/Phase 1/index.html";
+        }, 350);
+      } else {
+        showMessage("Account created. Check your email to confirm your account.", "success");
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = "Create Account";
+        }
       }
-
-      return;
+    } catch (error) {
+      console.error("Registration failed:", error);
+      showMessage(error.message || "Unable to create your account.");
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = "Create Account";
+      }
     }
-
-    // ======================================
-    // TEMPORARY FRONTEND REGISTRATION
-    // ======================================
-
-    /*
-                IMPORTANT:
-
-                This does NOT create a real account.
-
-                Later this section will send the
-                registration data to the backend.
-
-                Example:
-
-                fetch("/api/auth/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password
-                    })
-                });
-            */
-
-    showRegisterMessage("Registration details are valid.", "success");
-
-    /*
-                Do NOT log the password.
-
-                The backend will eventually handle
-                password hashing and account creation.
-            */
-
-    console.log("Registration validation passed for:", email);
   });
-}
+})();
