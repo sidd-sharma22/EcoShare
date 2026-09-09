@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>My Profile | EcoShare</title>
+
+    <!-- Favicon -->
+
+    <link rel="icon" href="../assets/logo.png" />
+
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- Global CSS -->
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Profile CSS -->
+
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+
+  <body>
+    <!-- ==========================================
+         HEADER
+         ========================================== -->
+
+    <header class="site-header">
+      <div class="container header-container">
+        <!-- Logo -->
+
+        <a href="index.html" class="brand" aria-label="EcoShare Home">
+          <img src="../assets/logo.png" alt="EcoShare" class="brand-logo" />
+        </a>
+
+        <!-- Navigation -->
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">
+            <i class="fa-solid fa-house"></i>
+
+            Home
+          </a>
+
+          <a href="../Phase 2/explore.html">
+            <i class="fa-solid fa-compass"></i>
+
+            Explore
+          </a>
+
+          <a href="index.html#how-it-works"> How It Works </a>
+
+          <a href="index.html#about"> About </a>
+
+          <a href="index.html#contact"> Contact </a>
+        </nav>
+
+        <!-- Header Actions -->
+
+        <div class="header-actions">
+          <a href="profile.html" class="profile-nav-btn active">
+            <i class="fa-solid fa-user"></i>
+
+            Profile
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         MAIN
+         ========================================== -->
+
+    <main class="profile-page">
+      <div class="container">
+        <!-- ======================================
+                 PAGE HEADING
+                 ====================================== -->
+
+        <section class="page-heading">
+          <span class="eyebrow">
+            <i class="fa-solid fa-user"></i>
+
+            Account
+          </span>
+
+          <h1>My Profile</h1>
+
+          <p>Manage your EcoShare profile and account information.</p>
+        </section>
+
+        <!-- ======================================
+                 PROFILE CONTENT
+                 ====================================== -->
+
+        <section class="profile-layout">
+          <!-- ==================================
+                     PROFILE SUMMARY
+                     ================================== -->
+
+          <aside class="profile-card summary-card">
+            <div class="avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+            <h2 id="profileName">Loading...</h2>
+
+            <p id="profileEmail" class="profile-email">Loading...</p>
+
+            <span id="profileRole" class="role-badge"> Loading... </span>
+
+            <div class="summary-divider"></div>
+
+            <p class="summary-text">
+              Your EcoShare account lets you borrow resources from the community
+              and lend your own resources.
+            </p>
+
+            <button type="button" id="logoutButton" class="logout-btn">
+              <i class="fa-solid fa-right-from-bracket"></i>
+
+              Logout
+            </button>
+          </aside>
+
+          <!-- ==================================
+                     PROFILE FORM
+                     ================================== -->
+
+          <div class="profile-card form-card">
+            <div class="card-heading">
+              <div>
+                <span class="section-label"> Personal Information </span>
+
+                <h2>Edit Profile</h2>
+              </div>
+
+              <i class="fa-solid fa-pen-to-square heading-icon"></i>
+            </div>
+
+            <!-- Message -->
+
+            <div
+              id="profileMessage"
+              class="profile-message"
+              role="alert"
+              aria-live="polite"
+              hidden
+            ></div>
+
+            <form id="profileForm">
+              <!-- Full Name -->
+
+              <div class="form-group">
+                <label for="fullName"> Full Name </label>
+
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user"></i>
+
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Email -->
+
+              <div class="form-group">
+                <label for="email"> Email </label>
+
+                <div class="input-wrapper disabled-input">
+                  <i class="fa-solid fa-envelope"></i>
+
+                  <input type="email" id="email" name="email" disabled />
+                </div>
+
+                <small>
+                  Your email is managed by your EcoShare authentication account.
+                </small>
+              </div>
+
+              <!-- Role -->
+
+              <div class="form-group">
+                <label for="role"> Account Role </label>
+
+                <div class="input-wrapper disabled-input">
+                  <i class="fa-solid fa-shield-halved"></i>
+
+                  <input type="text" id="role" name="role" disabled />
+                </div>
+
+                <small> Your account role cannot be changed here. </small>
+              </div>
+
+              <!-- Location -->
+
+              <div class="form-group">
+                <label for="location"> Location </label>
+
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-location-dot"></i>
+
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="e.g. Kottayam"
+                    autocomplete="address-level2"
+                  />
+                </div>
+              </div>
+
+              <!-- Bio -->
+
+              <div class="form-group">
+                <label for="bio"> Bio </label>
+
+                <textarea
+                  id="bio"
+                  name="bio"
+                  rows="5"
+                  maxlength="300"
+                  placeholder="Tell the EcoShare community a little about yourself..."
+                ></textarea>
+
+                <div class="character-count">
+                  <span id="bioCount"> 0 </span>
+
+                  /300
+                </div>
+              </div>
+
+              <!-- Save -->
+
+              <div class="form-actions">
+                <button type="submit" id="saveProfileButton" class="save-btn">
+                  <i class="fa-solid fa-floppy-disk"></i>
+
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ==========================================
+                 RESOURCE ACTIVITY
+                 ========================================== -->
+
+        <section class="resource-activity">
+          <div class="card-heading">
+            <div>
+              <span class="section-label"> Resource Activity </span>
+
+              <h2>Borrowing &amp; Lending</h2>
+            </div>
+
+            <i class="fa-solid fa-arrows-rotate heading-icon"></i>
+          </div>
+
+          <div class="resource-activity-grid">
+            <!-- ==================================
+                             MY LISTINGS
+                             ================================== -->
+
+            <a
+              href="../Phase 2/my-listings.html"
+              class="resource-activity-card"
+            >
+              <div class="resource-activity-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
+              </div>
+
+              <div class="resource-activity-content">
+                <h3>My Listings</h3>
+
+                <p>View and manage the resources you have shared.</p>
+              </div>
+
+              <i class="fa-solid fa-arrow-right resource-activity-arrow"></i>
+            </a>
+            <!-- ==================================
+                           LEND A RESOURCE
+                           ================================== -->
+
+            <a
+              href="../Phase 2/lend-resource.html"
+              class="resource-activity-card"
+            >
+              <div class="resource-activity-icon">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+              </div>
+
+              <div class="resource-activity-content">
+                <h3>Lend a Resource</h3>
+
+                <p>Share a resource with the EcoShare community.</p>
+              </div>
+
+              <i class="fa-solid fa-arrow-right resource-activity-arrow"></i>
+            </a>
+
+            <!-- ==================================
+                         MY REQUESTS
+                         ================================== -->
+
+            <a
+              href="../Phase 2/my-requests.html"
+              class="resource-activity-card"
+            >
+              <div class="resource-activity-icon">
+                <i class="fa-solid fa-hand-holding"></i>
+              </div>
+
+              <div class="resource-activity-content">
+                <h3>My Requests</h3>
+
+                <p>View and manage resources you have requested to borrow.</p>
+              </div>
+
+              <i class="fa-solid fa-arrow-right resource-activity-arrow"></i>
+            </a>
+
+            <!-- ==================================
+                         INCOMING REQUESTS
+                         ================================== -->
+
+            <a
+              href="../Phase 2/incoming-requests.html"
+              class="resource-activity-card"
+            >
+              <div class="resource-activity-icon">
+                <i class="fa-solid fa-inbox"></i>
+              </div>
+
+              <div class="resource-activity-content">
+                <h3>Incoming Requests</h3>
+
+                <p>
+                  Manage requests from people who want to borrow your resources.
+                </p>
+              </div>
+
+              <i class="fa-solid fa-arrow-right resource-activity-arrow"></i>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+
+    <footer class="site-footer">
+      <div class="container footer-container">
+        <div class="footer-brand">
+          <img src="../assets/logo.png" alt="EcoShare" />
+
+          <div>
+            <h3>EcoShare</h3>
+
+            <p>Share resources. Reduce waste. Build community.</p>
+          </div>
+        </div>
+
+        <p class="footer-copy">© 2026 EcoShare. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- ==========================================
+         SCRIPTS
+         ========================================== -->
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Client -->
+
+    <script src="supabase.js"></script>
+
+    <!-- Profile Logic -->
+
+    <script src="profile.js"></script>
+  </body>
+</html>

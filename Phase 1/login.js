@@ -63,7 +63,7 @@ if (togglePassword && passwordInput) {
 // ==========================================
 
 if (loginForm) {
-  loginForm.addEventListener("submit", (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     // --------------------------------------
@@ -125,35 +125,29 @@ if (loginForm) {
     }
 
     // --------------------------------------
-    // TEMPORARY FRONTEND LOGIN
+    // REAL SUPABASE LOGIN
     // --------------------------------------
 
-    /*
-                IMPORTANT:
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-                This is NOT real authentication.
+    if (error) {
+      showMessage(error.message);
+      return;
+    }
 
-                Later this section will send the
-                credentials to the backend API.
+    if (!data.session) {
+      showMessage("Login failed. Please try again.");
+      return;
+    }
 
-                Example:
+    showMessage("Login successful.", "success");
 
-                fetch("/api/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
-                });
-            */
-
-    showMessage("Login successful!", "success");
-
-    // Do NOT log the password.
-    console.log("Login attempted for:", email);
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 800);
   });
 }
 
@@ -162,7 +156,7 @@ if (loginForm) {
 // ==========================================
 
 if (forgotPassword) {
-  forgotPassword.addEventListener("click", (event) => {
+  forgotPassword.addEventListener("click", async (event) => {
     event.preventDefault();
 
     const email = emailInput ? emailInput.value.trim() : "";
@@ -198,9 +192,16 @@ if (forgotPassword) {
     }
 
     // --------------------------------------
-    // TEMPORARY RESET MESSAGE
+    // REAL SUPABASE PASSWORD RESET
     // --------------------------------------
 
-    showMessage("Password reset link will be sent to your email.", "success");
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
+
+    if (error) {
+      showMessage(error.message);
+      return;
+    }
+
+    showMessage("Password reset link has been sent to your email.", "success");
   });
 }

@@ -2,209 +2,101 @@
 // EcoShare — Borrow Request JavaScript
 // ==========================================
 
-
 // ==========================================
-// 1. RESOURCE DATA
-// ==========================================
-
-const resources = [
-  {
-    id: 1,
-    title: "Programming Books",
-    description:
-      "Useful programming and computer science books for students and developers.",
-    category: "books",
-    owner: "Rahul",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/programming-books.jpg",
-    createdAt: "2026-09-07"
-  },
-
-  {
-    id: 2,
-    title: "Scientific Calculator",
-    description:
-      "Casio scientific calculator available for students and academic work.",
-    category: "electronics",
-    owner: "Ananya",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/calculator.jpg",
-    createdAt: "2026-09-06"
-  },
-
-  {
-    id: 3,
-    title: "Power Drill",
-    description:
-      "Electric power drill suitable for household repairs and DIY projects.",
-    category: "tools",
-    owner: "Arjun",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/power-drill.jpg",
-    createdAt: "2026-09-05"
-  },
-
-  {
-    id: 4,
-    title: "College Backpack",
-    description:
-      "Good condition backpack suitable for college and everyday use.",
-    category: "others",
-    owner: "Sneha",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/backpack.jpg",
-    createdAt: "2026-09-04"
-  }
-];
-
-
-// ==========================================
-// 2. GET ELEMENTS
+// 1. GET ELEMENTS
 // ==========================================
 
-const borrowRequestCard =
-  document.getElementById("borrowRequestCard");
+const borrowRequestCard = document.getElementById("borrowRequestCard");
 
-const resourceNotFound =
-  document.getElementById("resourceNotFound");
+const resourceNotFound = document.getElementById("resourceNotFound");
 
-const resourceLink =
-  document.getElementById("resourceLink");
+const resourceLink = document.getElementById("resourceLink");
 
-const resourceImage =
-  document.getElementById("resourceImage");
+const resourceImage = document.getElementById("resourceImage");
 
-const resourceCategory =
-  document.getElementById("resourceCategory");
+const resourceCategory = document.getElementById("resourceCategory");
 
-const resourceTitle =
-  document.getElementById("resourceTitle");
+const resourceTitle = document.getElementById("resourceTitle");
 
-const resourceDescription =
-  document.getElementById("resourceDescription");
+const resourceDescription = document.getElementById("resourceDescription");
 
-const resourceOwner =
-  document.getElementById("resourceOwner");
+const resourceOwner = document.getElementById("resourceOwner");
 
-const resourceLocation =
-  document.getElementById("resourceLocation");
+const resourceLocation = document.getElementById("resourceLocation");
 
-const resourceAvailability =
-  document.getElementById("resourceAvailability");
+const resourceAvailability = document.getElementById("resourceAvailability");
 
-const borrowRequestForm =
-  document.getElementById("borrowRequestForm");
+const borrowRequestForm = document.getElementById("borrowRequestForm");
 
-const requestMessage =
-  document.getElementById("requestMessage");
+const requestMessage = document.getElementById("requestMessage");
 
-const characterCount =
-  document.getElementById("characterCount");
+const characterCount = document.getElementById("characterCount");
 
-const messageError =
-  document.getElementById("messageError");
+const messageError = document.getElementById("messageError");
 
-const requestBtn =
-  document.getElementById("requestBtn");
+const requestBtn = document.getElementById("requestBtn");
 
-const formMessage =
-  document.getElementById("formMessage");
+const formMessage = document.getElementById("formMessage");
 
-const backButton =
-  document.getElementById("backButton");
+const backButton = document.getElementById("backButton");
 
-const menuBtn =
-  document.getElementById("menu-btn");
+const menuBtn = document.getElementById("menu-btn");
 
-const primaryNavigation =
-  document.getElementById("primary-navigation");
+const primaryNavigation = document.getElementById("primary-navigation");
 
-const header =
-  document.querySelector(".header");
+const header = document.querySelector(".header");
 
+const authNavButton = document.getElementById("authNavButton");
+
+// ==========================================
+// 2. CURRENT RESOURCE
+// ==========================================
+
+let currentResource = null;
 
 // ==========================================
 // 3. FORMAT CATEGORY
 // ==========================================
 
 function formatCategory(category) {
-
   if (!category) {
     return "Other";
   }
 
-  return (
-    category.charAt(0).toUpperCase() +
-    category.slice(1)
-  );
+  return category.charAt(0).toUpperCase() + category.slice(1);
 }
-
 
 // ==========================================
 // 4. GET RESOURCE ID
 // ==========================================
 
 function getResourceId() {
+  const params = new URLSearchParams(window.location.search);
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+  const id = Number(params.get("id"));
 
-  const id =
-    Number(params.get("id"));
-
-  return Number.isInteger(id)
-    ? id
-    : null;
+  return Number.isInteger(id) ? id : null;
 }
 
-
 // ==========================================
-// 5. FIND RESOURCE
-// ==========================================
-
-function getResourceById(id) {
-
-  return resources.find(
-    (resource) =>
-      resource.id === id
-  );
-}
-
-
-// ==========================================
-// 6. SHOW FORM MESSAGE
+// 5. SHOW FORM MESSAGE
 // ==========================================
 
-function showFormMessage(
-  text,
-  type = "error"
-) {
-
+function showFormMessage(text, type = "error") {
   if (!formMessage) {
     return;
   }
 
   formMessage.textContent = text;
 
-  formMessage.style.color =
-    type === "success"
-      ? "var(--color-success)"
-      : "var(--color-error)";
+  formMessage.className = `form-message ${type}`;
 }
 
-
 // ==========================================
-// 7. SHOW FIELD ERROR
+// 6. SHOW FIELD ERROR
 // ==========================================
 
 function showFieldError(text) {
-
   if (!messageError) {
     return;
   }
@@ -212,49 +104,162 @@ function showFieldError(text) {
   messageError.textContent = text;
 }
 
-
 // ==========================================
-// 8. UPDATE CHARACTER COUNT
+// 7. UPDATE CHARACTER COUNT
 // ==========================================
 
 function updateCharacterCount() {
-
   if (!requestMessage || !characterCount) {
     return;
   }
 
-  const count =
-    requestMessage.value.length;
+  const count = requestMessage.value.length;
 
-  characterCount.textContent =
-    `${count} / 500`;
+  characterCount.textContent = `${count} / 500`;
 }
 
+// ==========================================
+// 8. CHECK AUTHENTICATION
+// ==========================================
+
+async function getAuthenticatedUser() {
+  const {
+    data: { user },
+    error,
+  } = await supabaseClient.auth.getUser();
+
+  if (error) {
+    console.error("Authentication error:", error);
+
+    return null;
+  }
+
+  return user;
+}
 
 // ==========================================
-// 9. DISPLAY RESOURCE IMAGE
+// 9. LOAD RESOURCE FROM SUPABASE
+// ==========================================
+
+async function loadResource() {
+  const resourceId = getResourceId();
+
+  // ----------------------------------------
+  // Invalid resource ID
+  // ----------------------------------------
+
+  if (!resourceId) {
+    showResourceNotFound();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Fetch resource
+  // ----------------------------------------
+
+  const { data: resource, error } = await supabaseClient
+    .from("resource_listings")
+    .select(
+      `
+      id,
+      owner_id,
+      title,
+      description,
+      category,
+      location,
+      image_url,
+      available,
+      created_at,
+      owner_name
+    `,
+    )
+    .eq("id", resourceId)
+    .maybeSingle();
+
+  // ----------------------------------------
+  // Handle database error
+  // ----------------------------------------
+
+  if (error) {
+    console.error("Resource loading error:", error);
+
+    showFormMessage("Unable to load this resource. Please try again.", "error");
+
+    showResourceNotFound();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Resource not found
+  // ----------------------------------------
+
+  if (!resource) {
+    showResourceNotFound();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Store current resource
+  // ----------------------------------------
+
+  currentResource = resource;
+
+  // ----------------------------------------
+  // Display resource
+  // ----------------------------------------
+
+  displayResource(resource);
+}
+
+// ==========================================
+// 10. DISPLAY RESOURCE IMAGE
 // ==========================================
 
 function displayResourceImage(resource) {
-
   if (!resourceImage) {
     return;
   }
 
-  resourceImage.src =
-    resource.image;
+  // ----------------------------------------
+  // No image
+  // ----------------------------------------
 
-  resourceImage.alt =
-    resource.title;
-
-  resourceImage.onerror = () => {
-
+  if (!resource.image_url) {
     resourceImage.removeAttribute("src");
 
     resourceImage.alt = "";
 
-    const imageContainer =
-      resourceImage.parentElement;
+    const imageContainer = resourceImage.parentElement;
+
+    if (imageContainer) {
+      imageContainer.innerHTML = `
+        <i
+          class="fa-solid fa-image"
+          aria-hidden="true"
+        ></i>
+      `;
+    }
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Image
+  // ----------------------------------------
+
+  resourceImage.src = resource.image_url;
+
+  resourceImage.alt = resource.title;
+
+  resourceImage.onerror = () => {
+    resourceImage.removeAttribute("src");
+
+    resourceImage.alt = "";
+
+    const imageContainer = resourceImage.parentElement;
 
     if (!imageContainer) {
       return;
@@ -269,24 +274,20 @@ function displayResourceImage(resource) {
   };
 }
 
-
 // ==========================================
-// 10. DISPLAY RESOURCE
+// 11. DISPLAY RESOURCE
 // ==========================================
 
 function displayResource(resource) {
-
   if (!resource) {
-
     showResourceNotFound();
 
     return;
   }
 
-
-  // ========================================
-  // SHOW PAGE
-  // ========================================
+  // ----------------------------------------
+  // Show page
+  // ----------------------------------------
 
   if (borrowRequestCard) {
     borrowRequestCard.hidden = false;
@@ -296,139 +297,103 @@ function displayResource(resource) {
     resourceNotFound.hidden = true;
   }
 
+  // ----------------------------------------
+  // Page title
+  // ----------------------------------------
 
-  // ========================================
-  // PAGE TITLE
-  // ========================================
+  document.title = `Borrow ${resource.title} | EcoShare`;
 
-  document.title =
-    `Borrow ${resource.title} | EcoShare`;
-
-
-  // ========================================
-  // RESOURCE LINK
-  // ========================================
+  // ----------------------------------------
+  // Resource link
+  // ----------------------------------------
 
   if (resourceLink) {
+    resourceLink.textContent = resource.title;
 
-    resourceLink.textContent =
-      resource.title;
-
-    resourceLink.href =
-      `resource-details.html?id=${encodeURIComponent(resource.id)}`;
+    resourceLink.href = `resource-details.html?id=${encodeURIComponent(
+      resource.id,
+    )}`;
   }
 
-
-  // ========================================
-  // RESOURCE CATEGORY
-  // ========================================
+  // ----------------------------------------
+  // Category
+  // ----------------------------------------
 
   if (resourceCategory) {
-
-    resourceCategory.textContent =
-      formatCategory(resource.category);
+    resourceCategory.textContent = formatCategory(resource.category);
   }
 
-
-  // ========================================
-  // RESOURCE TITLE
-  // ========================================
+  // ----------------------------------------
+  // Title
+  // ----------------------------------------
 
   if (resourceTitle) {
-
-    resourceTitle.textContent =
-      resource.title;
+    resourceTitle.textContent = resource.title;
   }
 
-
-  // ========================================
-  // RESOURCE DESCRIPTION
-  // ========================================
+  // ----------------------------------------
+  // Description
+  // ----------------------------------------
 
   if (resourceDescription) {
-
-    resourceDescription.textContent =
-      resource.description;
+    resourceDescription.textContent = resource.description;
   }
 
-
-  // ========================================
-  // RESOURCE OWNER
-  // ========================================
+  // ----------------------------------------
+  // Owner
+  // ----------------------------------------
 
   if (resourceOwner) {
-
-    resourceOwner.textContent =
-      resource.owner;
+    resourceOwner.textContent = resource.owner_name || "EcoShare User";
   }
 
-
-  // ========================================
-  // RESOURCE LOCATION
-  // ========================================
+  // ----------------------------------------
+  // Location
+  // ----------------------------------------
 
   if (resourceLocation) {
-
-    resourceLocation.textContent =
-      resource.location;
+    resourceLocation.textContent = resource.location || "Not specified";
   }
 
-
-  // ========================================
-  // RESOURCE AVAILABILITY
-  // ========================================
+  // ----------------------------------------
+  // Availability
+  // ----------------------------------------
 
   if (resourceAvailability) {
-
-    resourceAvailability.classList.remove(
-      "unavailable"
-    );
-
+    resourceAvailability.classList.remove("unavailable");
 
     if (resource.available) {
-
-      resourceAvailability.textContent =
-        "Available";
-
+      resourceAvailability.textContent = "Available";
     } else {
+      resourceAvailability.textContent = "Currently Borrowed";
 
-      resourceAvailability.textContent =
-        "Currently Borrowed";
-
-      resourceAvailability.classList.add(
-        "unavailable"
-      );
+      resourceAvailability.classList.add("unavailable");
     }
   }
 
-
-  // ========================================
-  // RESOURCE IMAGE
-  // ========================================
+  // ----------------------------------------
+  // Image
+  // ----------------------------------------
 
   displayResourceImage(resource);
 
-
-  // ========================================
-  // FORM STATE
-  // ========================================
+  // ----------------------------------------
+  // Form state
+  // ----------------------------------------
 
   setupRequestForm(resource);
 }
 
-
 // ==========================================
-// 11. SETUP REQUEST FORM
+// 12. SETUP REQUEST FORM
 // ==========================================
 
-function setupRequestForm(resource) {
-
+async function setupRequestForm(resource) {
   if (!borrowRequestForm) {
     return;
   }
 
-
-  // Reset form state
+  // Reset form
 
   borrowRequestForm.reset();
 
@@ -438,19 +403,16 @@ function setupRequestForm(resource) {
 
   showFormMessage("");
 
-
-  // ========================================
-  // RESOURCE UNAVAILABLE
-  // ========================================
+  // ----------------------------------------
+  // Resource unavailable
+  // ----------------------------------------
 
   if (!resource.available) {
-
     if (requestMessage) {
       requestMessage.disabled = true;
     }
 
     if (requestBtn) {
-
       requestBtn.disabled = true;
 
       requestBtn.innerHTML = `
@@ -465,17 +427,69 @@ function setupRequestForm(resource) {
     return;
   }
 
+  // ----------------------------------------
+  // Get current user
+  // ----------------------------------------
 
-  // ========================================
-  // RESOURCE AVAILABLE
-  // ========================================
+  const user = await getAuthenticatedUser();
+
+  // ----------------------------------------
+  // Not logged in
+  // ----------------------------------------
+
+  if (!user) {
+    if (requestMessage) {
+      requestMessage.disabled = true;
+    }
+
+    if (requestBtn) {
+      requestBtn.disabled = false;
+
+      requestBtn.innerHTML = `
+        <i
+          class="fa-solid fa-right-to-bracket"
+          aria-hidden="true"
+        ></i>
+        Login to Request
+      `;
+    }
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Owner cannot request own resource
+  // ----------------------------------------
+
+  if (user.id === resource.owner_id) {
+    if (requestMessage) {
+      requestMessage.disabled = true;
+    }
+
+    if (requestBtn) {
+      requestBtn.disabled = true;
+
+      requestBtn.innerHTML = `
+        <i
+          class="fa-solid fa-user"
+          aria-hidden="true"
+        ></i>
+        Your Resource
+      `;
+    }
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Normal borrower
+  // ----------------------------------------
 
   if (requestMessage) {
     requestMessage.disabled = false;
   }
 
   if (requestBtn) {
-
     requestBtn.disabled = false;
 
     requestBtn.innerHTML = `
@@ -488,324 +502,341 @@ function setupRequestForm(resource) {
   }
 }
 
-
 // ==========================================
-// 12. VALIDATE REQUEST MESSAGE
+// 13. VALIDATE REQUEST MESSAGE
 // ==========================================
 
 function validateRequestMessage() {
-
   if (!requestMessage) {
     return false;
   }
 
-  const message =
-    requestMessage.value.trim();
-
+  const message = requestMessage.value.trim();
 
   if (!message) {
-
-    showFieldError(
-      "Please enter a message for the resource owner."
-    );
+    showFieldError("Please enter a message for the resource owner.");
 
     requestMessage.focus();
 
     return false;
   }
-
 
   if (message.length < 10) {
-
-    showFieldError(
-      "Please enter at least 10 characters."
-    );
+    showFieldError("Please enter at least 10 characters.");
 
     requestMessage.focus();
 
     return false;
   }
-
 
   if (message.length > 500) {
-
-    showFieldError(
-      "Message cannot exceed 500 characters."
-    );
+    showFieldError("Message cannot exceed 500 characters.");
 
     requestMessage.focus();
 
     return false;
   }
-
 
   showFieldError("");
 
   return true;
 }
 
-
 // ==========================================
-// 13. HANDLE REQUEST SUBMISSION
+// 14. SUBMIT BORROW REQUEST
 // ==========================================
 
-function handleRequestSubmission(resource) {
-
-  if (!resource) {
+async function handleRequestSubmission() {
+  if (!currentResource) {
     return;
   }
 
+  // ----------------------------------------
+  // Check authentication
+  // ----------------------------------------
 
-  // ========================================
-  // AVAILABILITY CHECK
-  // ========================================
+  const user = await getAuthenticatedUser();
 
-  if (!resource.available) {
+  if (!user) {
+    const returnUrl = `../Phase 2/borrow-request.html?id=${encodeURIComponent(
+      currentResource.id,
+    )}`;
 
-    showFormMessage(
-      "This resource is currently unavailable."
-    );
+    window.location.href = `../Phase 1/login.html?redirect=${encodeURIComponent(
+      returnUrl,
+    )}`;
 
     return;
   }
 
+  // ----------------------------------------
+  // Availability check
+  // ----------------------------------------
 
-  // ========================================
-  // MESSAGE VALIDATION
-  // ========================================
+  if (!currentResource.available) {
+    showFormMessage("This resource is currently unavailable.", "error");
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Self-borrow protection
+  // ----------------------------------------
+
+  if (user.id === currentResource.owner_id) {
+    showFormMessage("You cannot borrow your own resource.", "error");
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Validate message
+  // ----------------------------------------
 
   if (!validateRequestMessage()) {
     return;
   }
 
-
-  /*
-   * ========================================
-   * FRONTEND-ONLY STAGE
-   * ========================================
-   *
-   * We are not storing or submitting a real
-   * borrow request yet.
-   *
-   * The backend will later:
-   *
-   * 1. Authenticate the user.
-   * 2. Identify the requester.
-   * 3. Verify the resource exists.
-   * 4. Verify the resource is available.
-   * 5. Prevent self-borrowing.
-   * 6. Create the borrow request.
-   *
-   * For now, we only validate the form and
-   * send the guest/user to Login.
-   */
-
-
-  showFormMessage(
-    "Please login to continue with your request.",
-    "success"
-  );
-
-
-  const returnUrl =
-    `../Phase 2/borrow-request.html?id=${encodeURIComponent(resource.id)}`;
-
-
-  const loginUrl =
-    `../Phase 1/login.html?redirect=${encodeURIComponent(returnUrl)}`;
-
+  // ----------------------------------------
+  // Disable button
+  // ----------------------------------------
 
   if (requestBtn) {
     requestBtn.disabled = true;
+
+    requestBtn.innerHTML = `
+      <i
+        class="fa-solid fa-spinner fa-spin"
+        aria-hidden="true"
+      ></i>
+      Sending...
+    `;
   }
 
+  // ----------------------------------------
+  // Insert request
+  // ----------------------------------------
 
-  setTimeout(() => {
+  const { data, error } = await supabaseClient
+    .from("borrow_requests")
+    .insert({
+      resource_id: currentResource.id,
+      borrower_id: user.id,
+      message: requestMessage.value.trim(),
+      status: "pending",
+    })
+    .select()
+    .single();
 
-    window.location.href =
-      loginUrl;
+  // ----------------------------------------
+  // Handle database error
+  // ----------------------------------------
 
-  }, 600);
+  if (error) {
+    console.error("Borrow request error:", error);
+
+    // Duplicate request
+
+    if (error.code === "23505") {
+      showFormMessage(
+        "You have already submitted a request for this resource.",
+        "error",
+      );
+    } else {
+      showFormMessage(
+        "Unable to send your request right now. Please try again.",
+        "error",
+      );
+    }
+
+    resetRequestButton();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Success
+  // ----------------------------------------
+
+  console.log("Borrow request created:", data);
+
+  showFormMessage("Your borrow request has been sent successfully!", "success");
+
+  if (requestMessage) {
+    requestMessage.disabled = true;
+  }
+
+  if (requestBtn) {
+    requestBtn.disabled = true;
+
+    requestBtn.innerHTML = `
+      <i
+        class="fa-solid fa-check"
+        aria-hidden="true"
+      ></i>
+      Request Sent
+    `;
+  }
 }
 
+// ==========================================
+// 15. RESET REQUEST BUTTON
+// ==========================================
+
+function resetRequestButton() {
+  if (!requestBtn) {
+    return;
+  }
+
+  requestBtn.disabled = false;
+
+  requestBtn.innerHTML = `
+    <i
+      class="fa-solid fa-paper-plane"
+      aria-hidden="true"
+    ></i>
+    Send Request
+  `;
+}
 
 // ==========================================
-// 14. FORM SUBMISSION
+// 16. FORM SUBMISSION
 // ==========================================
 
 if (borrowRequestForm) {
+  borrowRequestForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-  borrowRequestForm.addEventListener(
-    "submit",
-    (event) => {
-
-      event.preventDefault();
-
-      const resourceId =
-        getResourceId();
-
-      const resource =
-        getResourceById(resourceId);
-
-      handleRequestSubmission(resource);
-    }
-  );
-}
-
-
-// ==========================================
-// 15. CHARACTER COUNT
-// ==========================================
-
-if (requestMessage) {
-
-  requestMessage.addEventListener(
-    "input",
-    () => {
-
-      updateCharacterCount();
-
-      if (messageError) {
-        messageError.textContent = "";
-      }
-
-      if (formMessage) {
-        formMessage.textContent = "";
-      }
-    }
-  );
-}
-
-
-// ==========================================
-// 16. MOBILE NAVIGATION
-// ==========================================
-
-if (
-  menuBtn &&
-  primaryNavigation
-) {
-
-  menuBtn.addEventListener(
-    "click",
-    () => {
-
-      const isOpen =
-        primaryNavigation.classList.toggle(
-          "show"
-        );
-
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-
-      menuBtn.setAttribute(
-        "aria-label",
-        isOpen
-          ? "Close navigation menu"
-          : "Open navigation menu"
-      );
-
-
-      const icon =
-        menuBtn.querySelector("i");
-
-
-      if (icon) {
-
-        icon.classList.toggle(
-          "fa-bars",
-          !isOpen
-        );
-
-        icon.classList.toggle(
-          "fa-xmark",
-          isOpen
-        );
-      }
-    }
-  );
-
-
-  const navigationLinks =
-    primaryNavigation.querySelectorAll(
-      "a"
-    );
-
-
-  navigationLinks.forEach((link) => {
-
-    link.addEventListener(
-      "click",
-      () => {
-
-        primaryNavigation.classList.remove(
-          "show"
-        );
-
-
-        menuBtn.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-
-        menuBtn.setAttribute(
-          "aria-label",
-          "Open navigation menu"
-        );
-
-
-        const icon =
-          menuBtn.querySelector("i");
-
-
-        if (icon) {
-
-          icon.classList.remove(
-            "fa-xmark"
-          );
-
-          icon.classList.add(
-            "fa-bars"
-          );
-        }
-      }
-    );
-
+    await handleRequestSubmission();
   });
 }
 
-
 // ==========================================
-// 17. HEADER SCROLL EFFECT
+// 17. CHARACTER COUNT
 // ==========================================
 
-window.addEventListener(
-  "scroll",
-  () => {
+if (requestMessage) {
+  requestMessage.addEventListener("input", () => {
+    updateCharacterCount();
 
-    if (!header) {
-      return;
+    showFieldError("");
+
+    if (formMessage) {
+      formMessage.textContent = "";
+
+      formMessage.className = "form-message";
     }
-
-    header.classList.toggle(
-      "scrolled",
-      window.scrollY > 30
-    );
-  }
-);
-
+  });
+}
 
 // ==========================================
-// 18. RESOURCE NOT FOUND
+// 18. BACK BUTTON
+// ==========================================
+
+if (backButton) {
+  backButton.addEventListener("click", () => {
+    if (currentResource) {
+      window.location.href = `resource-details.html?id=${encodeURIComponent(
+        currentResource.id,
+      )}`;
+    } else {
+      window.location.href = "explore.html";
+    }
+  });
+}
+
+// ==========================================
+// 19. MOBILE NAVIGATION
+// ==========================================
+
+if (menuBtn && primaryNavigation) {
+  menuBtn.addEventListener("click", () => {
+    const isOpen = primaryNavigation.classList.toggle("show");
+
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation menu" : "Open navigation menu",
+    );
+
+    const icon = menuBtn.querySelector("i");
+
+    if (icon) {
+      icon.classList.toggle("fa-bars", !isOpen);
+
+      icon.classList.toggle("fa-xmark", isOpen);
+    }
+  });
+
+  const navigationLinks = primaryNavigation.querySelectorAll("a");
+
+  navigationLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      primaryNavigation.classList.remove("show");
+
+      menuBtn.setAttribute("aria-expanded", "false");
+
+      menuBtn.setAttribute("aria-label", "Open navigation menu");
+
+      const icon = menuBtn.querySelector("i");
+
+      if (icon) {
+        icon.classList.remove("fa-xmark");
+
+        icon.classList.add("fa-bars");
+      }
+    });
+  });
+}
+
+// ==========================================
+// 20. HEADER SCROLL EFFECT
+// ==========================================
+
+window.addEventListener("scroll", () => {
+  if (!header) {
+    return;
+  }
+
+  header.classList.toggle("scrolled", window.scrollY > 30);
+});
+
+// ==========================================
+// 21. AUTH NAVIGATION
+// ==========================================
+
+async function updateAuthNavigation() {
+  if (!authNavButton) {
+    return;
+  }
+
+  const {
+    data: { session },
+  } = await supabaseClient.auth.getSession();
+
+  if (session) {
+    authNavButton.innerHTML = `
+      <i class="fa-solid fa-user"></i>
+      Profile
+    `;
+
+    authNavButton.href = "../Phase 1/profile.html";
+  } else {
+    authNavButton.innerHTML = `
+      <i class="fa-solid fa-right-to-bracket"></i>
+      Login
+    `;
+
+    authNavButton.href = "../Phase 1/login.html";
+  }
+}
+
+// ==========================================
+// 22. RESOURCE NOT FOUND
 // ==========================================
 
 function showResourceNotFound() {
-
   if (borrowRequestCard) {
     borrowRequestCard.hidden = true;
   }
@@ -814,27 +845,39 @@ function showResourceNotFound() {
     resourceNotFound.hidden = false;
   }
 
-  document.title =
-    "Resource Not Found | EcoShare";
+  document.title = "Resource Not Found | EcoShare";
 }
 
-
 // ==========================================
-// 19. INITIALIZE
+// 23. INITIALIZE
 // ==========================================
 
-const resourceId =
-  getResourceId();
+document.addEventListener("DOMContentLoaded", async () => {
+  await updateAuthNavigation();
 
-const resource =
-  getResourceById(resourceId);
+  const user = await getAuthenticatedUser();
 
+  // ----------------------------------------
+  // Protect page
+  // ----------------------------------------
 
-if (resource) {
+  if (!user) {
+    const resourceId = getResourceId();
 
-  displayResource(resource);
+    const returnUrl = resourceId
+      ? `../Phase 2/borrow-request.html?id=${encodeURIComponent(resourceId)}`
+      : "../Phase 2/borrow-request.html";
 
-} else {
+    window.location.href = `../Phase 1/login.html?redirect=${encodeURIComponent(
+      returnUrl,
+    )}`;
 
-  showResourceNotFound();
-}
+    return;
+  }
+
+  // ----------------------------------------
+  // Load resource
+  // ----------------------------------------
+
+  await loadResource();
+});

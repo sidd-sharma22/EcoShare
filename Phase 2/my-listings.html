@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Listings | EcoShare</title>
+
+    <link rel="stylesheet" href="../Phase 1/style.css">
+    <link rel="stylesheet" href="my-listings.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+
+            <a
+                href="../Phase 1/index.html"
+                class="logo"
+                aria-label="EcoShare Home"
+            >
+                <img src="../assets/logo.png" alt="EcoShare">
+            </a>
+
+            <div class="nav-links" id="navLinks">
+
+                <a href="../Phase 1/index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a href="explore.html" class="nav-link">
+                    Explore
+                </a>
+
+                <a href="../Phase 1/index.html#how-it-works" class="nav-link">
+                    How It Works
+                </a>
+
+                <a href="../Phase 1/index.html#about" class="nav-link">
+                    About
+                </a>
+
+                <a href="../Phase 1/index.html#contact" class="nav-link">
+                    Contact
+                </a>
+
+                <a
+                    href="../Phase 1/login.html"
+                    class="auth-nav-button"
+                    id="authNavButton"
+                >
+                    Login
+                </a>
+
+            </div>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </nav>
+    </header>
+
+
+    <!-- Main -->
+    <main class="listings-page">
+
+        <section class="listings-header">
+
+            <div>
+                <span class="section-label">
+                    RESOURCE MANAGEMENT
+                </span>
+
+                <h1>My Listings</h1>
+
+                <p>
+                    Manage the resources you have shared with the EcoShare
+                    community.
+                </p>
+            </div>
+
+            <a
+                href="lend-resource.html"
+                class="primary-button"
+            >
+                <i class="fa-solid fa-plus"></i>
+                Lend a Resource
+            </a>
+
+        </section>
+
+
+        <!-- Messages -->
+        <div
+            class="page-message"
+            id="pageMessage"
+            hidden
+        ></div>
+
+
+        <!-- Loading -->
+        <section
+            class="loading-state"
+            id="loadingState"
+        >
+            <div class="loading-spinner"></div>
+
+            <p>Loading your listings...</p>
+        </section>
+
+
+        <!-- Empty State -->
+        <section
+            class="empty-state"
+            id="emptyState"
+            hidden
+        >
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+
+            <h2>No resources listed yet</h2>
+
+            <p>
+                You haven't shared any resources with the community yet.
+                Start by lending something you own.
+            </p>
+
+            <a
+                href="lend-resource.html"
+                class="primary-button"
+            >
+                <i class="fa-solid fa-plus"></i>
+                Lend Your First Resource
+            </a>
+
+        </section>
+
+
+        <!-- Listings -->
+        <section
+            class="listings-grid"
+            id="listingsGrid"
+            hidden
+        ></section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <img
+                    src="../assets/logo.png"
+                    alt="EcoShare"
+                >
+
+                <p>
+                    Share more. Waste less. Build a better community together.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="../Phase 1/index.html">Home</a>
+                <a href="explore.html">Explore</a>
+                <a href="../Phase 1/index.html#about">About</a>
+                <a href="../Phase 1/index.html#contact">Contact</a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../Phase 1/supabase.js"></script>
+
+    <script src="my-listings.js"></script>
+
+</body>
+</html>

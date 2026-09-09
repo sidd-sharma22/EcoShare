@@ -120,7 +120,7 @@ if (registerPassword && toggleRegisterPassword) {
 // ==========================================
 
 if (registerForm) {
-  registerForm.addEventListener("submit", (event) => {
+  registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     // --------------------------------------
@@ -252,41 +252,36 @@ if (registerForm) {
     }
 
     // ======================================
-    // TEMPORARY FRONTEND REGISTRATION
+    // REAL SUPABASE REGISTRATION
     // ======================================
 
-    /*
-                IMPORTANT:
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+        },
+      },
+    });
 
-                This does NOT create a real account.
+    if (error) {
+      showRegisterMessage(error.message);
+      return;
+    }
 
-                Later this section will send the
-                registration data to the backend.
+    if (data.user && !data.session) {
+      showRegisterMessage(
+        "Account created. Please check your email to verify your account.",
+        "success",
+      );
 
-                Example:
+      registerForm.reset();
+      return;
+    }
 
-                fetch("/api/auth/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password
-                    })
-                });
-            */
+    showRegisterMessage("Account created successfully.", "success");
 
-    showRegisterMessage("Registration details are valid.", "success");
-
-    /*
-                Do NOT log the password.
-
-                The backend will eventually handle
-                password hashing and account creation.
-            */
-
-    console.log("Registration validation passed for:", email);
+    showRegisterMessage("Registration is not connected yet.", "error");
   });
 }

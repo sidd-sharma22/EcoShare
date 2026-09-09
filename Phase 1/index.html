@@ -32,8 +32,6 @@
         <!-- Logo -->
         <a href="/Phase 1/index.html" class="logo" aria-label="EcoShare Home">
           <img src="/assets/logo.png" alt="EcoShare logo" />
-
-          <span>EcoShare</span>
         </a>
 
         <!-- Navigation -->
@@ -52,7 +50,7 @@
 
           <a href="#contact" class="nav-link"> Contact </a>
 
-          <a href="login.html" class="login-nav-btn">
+         <a href="login.html" class="login-nav-btn" id="authNavButton">
             <i class="fa-solid fa-right-to-bracket"></i>
             Login
           </a>
@@ -97,12 +95,12 @@
             </p>
 
             <div class="hero-buttons">
-              <a href="#explore" class="primary-btn">
+              <a href="/Phase 2/explore.html" class="primary-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 Explore Resources
               </a>
 
-              <a href="login.html" class="secondary-btn">
+              <a href="/Phase 1/login.html" class="secondary-btn">
                 <i class="fa-solid fa-hand-holding-heart"></i>
                 Start Sharing
               </a>
@@ -244,7 +242,7 @@
           </div>
 
           <div class="explore-more">
-            <a href="#explore" class="outline-btn">
+            <a href="/Phase 2/explore.html" class="outline-btn">
               Browse Resources
               <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -343,7 +341,7 @@
               </p>
             </div>
 
-            <a href="/Phase 1/login.css" class="primary-btn light-btn">
+            <a href="/Phase 2/lend-resource.html" class="primary-btn light-btn">
               <i class="fa-solid fa-plus"></i>
               Lend a Resource
             </a>
@@ -453,7 +451,7 @@
 
               <p>Have feedback, suggestions, or questions about EcoShare?</p>
 
-              <a href="alok.kumar.official.ak@gmail.com" class="contact-email">
+              <a href="mailto:alok.kumar.official.ak@gmail.com" class="contact-email">
                 alok.kumar.official.ak@gmail.com
               </a>
             </div>
@@ -487,6 +485,8 @@
     </footer>
 
     <!-- JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/Phase 1/supabase.js"></script>
     <script src="/Phase 1/script.js"></script>
   </body>
 </html>

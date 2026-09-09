@@ -1,0 +1,542 @@
+/* ==========================================
+   EcoShare — Incoming Requests
+   ========================================== */
+
+
+/* ==========================================
+   PAGE HERO
+   ========================================== */
+
+.page-hero {
+    padding: 96px 0 64px;
+    background: var(--color-soft-background);
+    border-bottom: var(--border-width) solid var(--color-border-light);
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: var(--space-4);
+
+    color: var(--color-primary-dark);
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.08em;
+}
+
+.eyebrow i {
+    font-size: var(--font-sm);
+}
+
+.page-hero h1 {
+    margin: 0 0 var(--space-4);
+
+    color: var(--color-black);
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: var(--font-weight-bold);
+}
+
+.page-hero p {
+    max-width: 680px;
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: var(--font-lg);
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   REQUESTS SECTION
+   ========================================== */
+
+.requests-section {
+    padding: 64px 0 96px;
+}
+
+.requests-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+
+    margin-bottom: var(--space-8);
+}
+
+.requests-header h2 {
+    margin: 0 0 var(--space-2);
+
+    color: var(--color-black);
+    font-size: var(--font-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.requests-header p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: var(--font-md);
+}
+
+
+/* ==========================================
+   LEND RESOURCE BUTTON
+   ========================================== */
+
+.explore-resources-btn,
+.empty-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 46px;
+    padding: 12px 22px;
+
+    border-radius: var(--radius-pill);
+
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+
+    text-decoration: none;
+
+    transition:
+        background-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.explore-resources-btn:hover,
+.empty-action-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   REQUEST CARD
+   ========================================== */
+
+.incoming-request-card {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: var(--space-6);
+
+    padding: var(--space-5);
+
+    margin-bottom: var(--space-5);
+
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-white);
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.incoming-request-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   RESOURCE IMAGE
+   ========================================== */
+
+.incoming-request-image {
+    width: 180px;
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-md);
+
+    background: var(--color-soft-background);
+}
+
+.incoming-request-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.incoming-request-image > i {
+    color: var(--color-text-muted);
+    font-size: 42px;
+}
+
+
+/* ==========================================
+   REQUEST CONTENT
+   ========================================== */
+
+.incoming-request-content {
+    min-width: 0;
+    padding-right: 140px;
+}
+
+.request-category {
+    display: inline-block;
+
+    margin-bottom: var(--space-2);
+
+    color: var(--color-primary-dark);
+    font-size: var(--font-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+}
+
+.incoming-request-content h3 {
+    margin: 0 0 var(--space-2);
+
+    color: var(--color-black);
+    font-size: var(--font-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.resource-description {
+    margin: 0 0 var(--space-4);
+
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   BORROWER INFORMATION
+   ========================================== */
+
+.borrower-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+
+    margin-bottom: var(--space-4);
+}
+
+.borrower-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--color-text-secondary);
+    font-size: var(--font-sm);
+}
+
+.borrower-info i {
+    color: var(--color-primary);
+}
+
+
+/* ==========================================
+   REQUEST MESSAGE
+   ========================================== */
+
+.request-message {
+    padding: var(--space-4);
+
+    margin-bottom: var(--space-4);
+
+    border-left: 3px solid var(--color-primary);
+
+    border-radius: var(--radius-sm);
+
+    background: var(--color-soft-background);
+}
+
+.request-message strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--color-text-primary);
+    font-size: var(--font-sm);
+}
+
+.request-message p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: var(--font-sm);
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   REQUEST STATUS
+   ========================================== */
+
+.incoming-request-status {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 14px;
+
+    border-radius: var(--radius-sm);
+
+    font-size: var(--font-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.status-pending {
+    background: var(--color-soft-background);
+    color: var(--color-primary-dark);
+}
+
+.status-approved {
+    background: #eef8e8;
+    color: var(--color-primary-dark);
+}
+
+.status-rejected {
+    background: #fff1f1;
+    color: #b42318;
+}
+
+.status-cancelled {
+    background: #f1f1f1;
+    color: var(--color-text-secondary);
+}
+
+
+/* ==========================================
+   REQUEST ACTIONS
+   ========================================== */
+
+.incoming-request-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.approve-request-btn,
+.reject-request-btn {
+    flex: 1;
+
+    min-height: 44px;
+    padding: 11px 18px;
+
+    border-radius: var(--radius-md);
+
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.approve-request-btn {
+    border: none;
+
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.approve-request-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.reject-request-btn {
+    border: var(--border-width) solid var(--color-border);
+
+    background: var(--color-white);
+    color: var(--color-text-secondary);
+}
+
+.reject-request-btn:hover {
+    background: #fff5f5;
+    border-color: #d9534f;
+    color: #c0392b;
+    transform: translateY(-1px);
+}
+
+.approve-request-btn:disabled,
+.reject-request-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ==========================================
+   ERROR STATE
+   ========================================== */
+
+.requests-error {
+    padding: 48px 24px;
+
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-white);
+
+    text-align: center;
+}
+
+.requests-error i {
+    margin-bottom: var(--space-4);
+
+    color: var(--color-primary);
+    font-size: 36px;
+}
+
+.requests-error h3 {
+    margin: 0 0 var(--space-2);
+
+    color: var(--color-black);
+}
+
+.requests-error p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+}
+
+
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
+
+.empty-requests {
+    padding: 64px 24px;
+
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-white);
+
+    text-align: center;
+}
+
+.empty-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto var(--space-5);
+
+    border-radius: 50%;
+
+    background: var(--color-soft-background);
+    color: var(--color-primary);
+
+    font-size: 26px;
+}
+
+.empty-requests h3 {
+    margin: 0 0 var(--space-2);
+
+    color: var(--color-black);
+}
+
+.empty-requests p {
+    max-width: 520px;
+    margin: 0 auto var(--space-6);
+
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 800px) {
+
+    .incoming-request-card {
+        grid-template-columns: 140px minmax(0, 1fr);
+    }
+
+    .incoming-request-image {
+        width: 140px;
+        height: 140px;
+    }
+
+    .incoming-request-content {
+        padding-right: 0;
+    }
+
+    .incoming-request-status {
+        position: static;
+        margin-top: var(--space-4);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .page-hero {
+        padding: 72px 0 48px;
+    }
+
+    .requests-section {
+        padding: 48px 0 72px;
+    }
+
+    .requests-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .explore-resources-btn {
+        width: 100%;
+    }
+
+    .incoming-request-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .incoming-request-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .incoming-request-status {
+        position: static;
+    }
+
+    .incoming-request-actions {
+        flex-direction: column;
+    }
+
+    .approve-request-btn,
+    .reject-request-btn {
+        width: 100%;
+    }
+
+}
