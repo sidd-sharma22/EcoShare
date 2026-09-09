@@ -2,142 +2,59 @@
 // EcoShare — Resource Details JavaScript
 // ==========================================
 
-
 // ==========================================
-// 1. RESOURCE DATA
-// ==========================================
-
-const resources = [
-  {
-    id: 1,
-    title: "Programming Books",
-    description:
-      "Useful programming and computer science books for students and developers.",
-    category: "books",
-    owner: "Rahul",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/programming-book.jpg",
-    createdAt: "2026-09-07"
-  },
-
-  {
-    id: 2,
-    title: "Scientific Calculator",
-    description:
-      "Casio scientific calculator available for students and academic work.",
-    category: "electronics",
-    owner: "Ananya",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/calculator.jpg",
-    createdAt: "2026-09-06"
-  },
-
-  {
-    id: 3,
-    title: "Power Drill",
-    description:
-      "Electric power drill suitable for household repairs and DIY projects.",
-    category: "tools",
-    owner: "Arjun",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/power-drill.jpg",
-    createdAt: "2026-09-05"
-  },
-
-  {
-    id: 4,
-    title: "College Backpack",
-    description:
-      "Good condition backpack suitable for college and everyday use.",
-    category: "others",
-    owner: "Sneha",
-    location: "Kottayam",
-    available: true,
-    image: "/assets/backpack.jpg",
-    createdAt: "2026-09-04"
-  }
-];
-
-
-// ==========================================
-// 2. GET ELEMENTS
+// 1. GET ELEMENTS
 // ==========================================
 
-const detailsCard =
-  document.getElementById("detailsCard");
+const detailsCard = document.getElementById("detailsCard");
 
-const detailsImage =
-  document.getElementById("detailsImage");
+const detailsImage = document.getElementById("detailsImage");
 
-const detailsCategory =
-  document.getElementById("detailsCategory");
+const detailsCategory = document.getElementById("detailsCategory");
 
-const detailsTitle =
-  document.getElementById("detailsTitle");
+const detailsTitle = document.getElementById("detailsTitle");
 
-const detailsDescription =
-  document.getElementById("detailsDescription");
+const detailsDescription = document.getElementById("detailsDescription");
 
-const detailsOwner =
-  document.getElementById("detailsOwner");
+const detailsOwner = document.getElementById("detailsOwner");
 
-const detailsLocation =
-  document.getElementById("detailsLocation");
+const detailsLocation = document.getElementById("detailsLocation");
 
-const detailsAvailability =
-  document.getElementById("detailsAvailability");
+const detailsAvailability = document.getElementById("detailsAvailability");
 
-const breadcrumbTitle =
-  document.getElementById("breadcrumbTitle");
+const breadcrumbTitle = document.getElementById("breadcrumbTitle");
 
-const borrowBtn =
-  document.getElementById("borrowBtn");
+const borrowBtn = document.getElementById("borrowBtn");
 
-const detailsMessage =
-  document.getElementById("detailsMessage");
+const detailsMessage = document.getElementById("detailsMessage");
 
-const resourceNotFound =
-  document.getElementById("resourceNotFound");
+const resourceNotFound = document.getElementById("resourceNotFound");
 
-const menuBtn =
-  document.getElementById("menu-btn");
+const menuBtn = document.getElementById("menu-btn");
 
-const primaryNavigation =
-  document.getElementById("primary-navigation");
+const primaryNavigation = document.getElementById("primary-navigation");
 
-const header =
-  document.querySelector(".header");
+const header = document.querySelector(".header");
 
+const authNavButton = document.getElementById("authNavButton");
 
 // ==========================================
-// 3. FORMAT CATEGORY
+// 2. FORMAT CATEGORY
 // ==========================================
 
 function formatCategory(category) {
-
   if (!category) {
     return "Other";
   }
 
-  return (
-    category.charAt(0).toUpperCase() +
-    category.slice(1)
-  );
+  return category.charAt(0).toUpperCase() + category.slice(1);
 }
 
-
 // ==========================================
-// 4. SHOW MESSAGE
+// 3. SHOW MESSAGE
 // ==========================================
 
-function showMessage(
-  text,
-  type = "error"
-) {
-
+function showMessage(text, type = "error") {
   if (!detailsMessage) {
     return;
   }
@@ -145,102 +62,185 @@ function showMessage(
   detailsMessage.textContent = text;
 
   detailsMessage.style.color =
-    type === "success"
-      ? "var(--color-success)"
-      : "var(--color-error)";
+    type === "success" ? "var(--color-success)" : "var(--color-error)";
 }
 
-
 // ==========================================
-// 5. GET RESOURCE ID
+// 4. GET RESOURCE ID
 // ==========================================
 
 function getResourceId() {
+  const params = new URLSearchParams(window.location.search);
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+  const id = Number(params.get("id"));
 
-  const id =
-    Number(params.get("id"));
-
-  return Number.isInteger(id)
-    ? id
-    : null;
+  return Number.isInteger(id) ? id : null;
 }
 
-
 // ==========================================
-// 6. FIND RESOURCE
+// 5. LOAD RESOURCE FROM SUPABASE
 // ==========================================
 
-function getResourceById(id) {
+async function loadResource() {
+  const resourceId = getResourceId();
 
-  return resources.find(
-    (resource) =>
-      resource.id === id
-  );
+  // ----------------------------------------
+  // Invalid ID
+  // ----------------------------------------
+
+  if (!resourceId) {
+    showResourceNotFound();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Fetch resource
+  // ----------------------------------------
+
+  const { data: resource, error } = await supabaseClient
+    .from("resources")
+    .select(
+      `
+      id,
+      owner_id,
+      title,
+      description,
+      category,
+      location,
+      image_url,
+      available,
+      created_at
+    `,
+    )
+    .eq("id", resourceId)
+    .single();
+
+  // ----------------------------------------
+  // Handle error
+  // ----------------------------------------
+
+  if (error) {
+    console.error("Resource loading error:", error);
+
+    showResourceNotFound();
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Get owner name
+  // ----------------------------------------
+
+  let ownerName = "EcoShare User";
+
+  const { data: ownerProfile, error: ownerError } = await supabaseClient
+    .from("profiles")
+    .select("full_name")
+    .eq("id", resource.owner_id)
+    .maybeSingle();
+
+  if (!ownerError && ownerProfile) {
+    ownerName = ownerProfile.full_name;
+  }
+
+  // ----------------------------------------
+  // Convert database object
+  // ----------------------------------------
+
+  const formattedResource = {
+    id: resource.id,
+
+    title: resource.title,
+
+    description: resource.description,
+
+    category: resource.category,
+
+    owner: ownerName,
+
+    ownerId: resource.owner_id,
+
+    location: resource.location || "Not specified",
+
+    available: resource.available,
+
+    image: resource.image_url,
+
+    createdAt: resource.created_at,
+  };
+
+  // ----------------------------------------
+  // Display
+  // ----------------------------------------
+
+  displayResource(formattedResource);
 }
 
-
 // ==========================================
-// 7. DISPLAY RESOURCE IMAGE
+// 6. DISPLAY RESOURCE IMAGE
 // ==========================================
 
 function displayResourceImage(resource) {
-
   if (!detailsImage) {
     return;
   }
 
   detailsImage.innerHTML = "";
 
-  const image =
-    document.createElement("img");
+  // ----------------------------------------
+  // No image
+  // ----------------------------------------
+
+  if (!resource.image) {
+    detailsImage.innerHTML = `
+      <i
+        class="fa-solid fa-image"
+        aria-hidden="true"
+      ></i>
+    `;
+
+    return;
+  }
+
+  // ----------------------------------------
+  // Image
+  // ----------------------------------------
+
+  const image = document.createElement("img");
 
   image.src = resource.image;
 
-  image.alt =
-    resource.title;
+  image.alt = resource.title;
 
-  image.addEventListener(
-    "error",
-    () => {
-
-      detailsImage.innerHTML = `
+  image.addEventListener("error", () => {
+    detailsImage.innerHTML = `
         <i
           class="fa-solid fa-image"
           aria-hidden="true"
         ></i>
       `;
-
-    }
-  );
+  });
 
   detailsImage.appendChild(image);
 }
 
-
 // ==========================================
-// 8. SETUP BORROW BUTTON
+// 7. SETUP BORROW BUTTON
 // ==========================================
 
-function setupBorrowButton(resource) {
-
+async function setupBorrowButton(resource) {
   if (!borrowBtn) {
     return;
   }
 
   showMessage("");
 
-
   // ========================================
   // RESOURCE UNAVAILABLE
   // ========================================
 
   if (!resource.available) {
-
     borrowBtn.disabled = true;
 
     borrowBtn.innerHTML = `
@@ -256,6 +256,33 @@ function setupBorrowButton(resource) {
     return;
   }
 
+  // ========================================
+  // CHECK CURRENT USER
+  // ========================================
+
+  const {
+    data: { user },
+  } = await supabaseClient.auth.getUser();
+
+  // ========================================
+  // USER IS OWNER
+  // ========================================
+
+  if (user && user.id === resource.ownerId) {
+    borrowBtn.disabled = true;
+
+    borrowBtn.innerHTML = `
+      <i
+        class="fa-solid fa-user"
+        aria-hidden="true"
+      ></i>
+      Your Resource
+    `;
+
+    borrowBtn.onclick = null;
+
+    return;
+  }
 
   // ========================================
   // RESOURCE AVAILABLE
@@ -271,90 +298,83 @@ function setupBorrowButton(resource) {
     Borrow / Request
   `;
 
-
   borrowBtn.onclick = () => {
     handleBorrowRequest(resource);
   };
 }
 
-
 // ==========================================
-// 9. HANDLE BORROW REQUEST
+// 8. HANDLE BORROW REQUEST
 // ==========================================
 
-function handleBorrowRequest(resource) {
-
+async function handleBorrowRequest(resource) {
   if (!resource) {
     return;
   }
 
-
   // ========================================
-  // SAFETY CHECK
+  // CHECK AVAILABILITY
   // ========================================
 
   if (!resource.available) {
-
-    showMessage(
-      "This resource is currently unavailable."
-    );
+    showMessage("This resource is currently unavailable.");
 
     return;
   }
 
+  // ========================================
+  // CHECK AUTHENTICATION
+  // ========================================
 
-  /*
-   * FRONTEND-ONLY STAGE
-   *
-   * Real authentication and borrowing
-   * requests will be handled by the backend.
-   *
-   * For now, the user is sent to Login.
-   */
+  const {
+    data: { user },
+  } = await supabaseClient.auth.getUser();
 
+  // ========================================
+  // NOT LOGGED IN
+  // ========================================
 
-  showMessage(
-    "Please login to request this resource.",
-    "success"
-  );
+  if (!user) {
+    showMessage("Please login to request this resource.", "success");
 
+    const returnUrl = `../Phase 2/resource-details.html?id=${resource.id}`;
 
-  /*
-   * Preserve the resource URL so the
-   * login page can eventually return the
-   * user to this resource.
-   */
+    const loginUrl = `../Phase 1/login.html?redirect=${encodeURIComponent(returnUrl)}`;
 
-  const returnUrl =
-    `../Phase 2/resource-details.html?id=${resource.id}`;
+    setTimeout(() => {
+      window.location.href = loginUrl;
+    }, 600);
 
+    return;
+  }
 
-  const loginUrl =
-    `../Phase 1/login.html?redirect=${encodeURIComponent(returnUrl)}`;
+  // ========================================
+  // OWNER SAFETY CHECK
+  // ========================================
 
+  if (user.id === resource.ownerId) {
+    showMessage("You cannot borrow your own resource.");
 
-  setTimeout(() => {
+    return;
+  }
 
-    window.location.href =
-      loginUrl;
+  // ========================================
+  // TEMPORARY REQUEST PAGE
+  // ========================================
 
-  }, 600);
+  window.location.href = `borrow-request.html?id=${resource.id}`;
 }
 
-
 // ==========================================
-// 10. DISPLAY RESOURCE
+// 9. DISPLAY RESOURCE
 // ==========================================
 
 function displayResource(resource) {
-
   if (!resource) {
-
     showResourceNotFound();
 
     return;
   }
-
 
   // ========================================
   // SHOW DETAILS
@@ -368,122 +388,83 @@ function displayResource(resource) {
     resourceNotFound.hidden = true;
   }
 
-
   // ========================================
   // PAGE TITLE
   // ========================================
 
-  document.title =
-    `${resource.title} | EcoShare`;
-
+  document.title = `${resource.title} | EcoShare`;
 
   // ========================================
   // BREADCRUMB
   // ========================================
 
   if (breadcrumbTitle) {
-
-    breadcrumbTitle.textContent =
-      resource.title;
+    breadcrumbTitle.textContent = resource.title;
   }
-
 
   // ========================================
   // CATEGORY
   // ========================================
 
   if (detailsCategory) {
-
-    detailsCategory.textContent =
-      formatCategory(resource.category);
+    detailsCategory.textContent = formatCategory(resource.category);
   }
-
 
   // ========================================
   // TITLE
   // ========================================
 
   if (detailsTitle) {
-
-    detailsTitle.textContent =
-      resource.title;
+    detailsTitle.textContent = resource.title;
   }
-
 
   // ========================================
   // DESCRIPTION
   // ========================================
 
   if (detailsDescription) {
-
-    detailsDescription.textContent =
-      resource.description;
+    detailsDescription.textContent = resource.description;
   }
-
 
   // ========================================
   // OWNER
   // ========================================
 
   if (detailsOwner) {
-
-    detailsOwner.textContent =
-      resource.owner;
+    detailsOwner.textContent = resource.owner;
   }
-
 
   // ========================================
   // LOCATION
   // ========================================
 
   if (detailsLocation) {
-
-    detailsLocation.textContent =
-      resource.location;
+    detailsLocation.textContent = resource.location;
   }
-
 
   // ========================================
   // AVAILABILITY
   // ========================================
 
   if (detailsAvailability) {
-
-    detailsAvailability.classList.remove(
-      "available",
-      "unavailable"
-    );
-
+    detailsAvailability.classList.remove("available", "unavailable");
 
     if (resource.available) {
+      detailsAvailability.textContent = "Available";
 
-      detailsAvailability.textContent =
-        "Available";
-
-      detailsAvailability.classList.add(
-        "available"
-      );
-
+      detailsAvailability.classList.add("available");
     } else {
+      detailsAvailability.textContent = "Currently Borrowed";
 
-      detailsAvailability.textContent =
-        "Currently Borrowed";
-
-      detailsAvailability.classList.add(
-        "unavailable"
-      );
-
+      detailsAvailability.classList.add("unavailable");
     }
-
   }
-
 
   // ========================================
   // IMAGE
   // ========================================
 
   displayResourceImage(resource);
-
 
   // ========================================
   // BORROW BUTTON
@@ -492,13 +473,11 @@ function displayResource(resource) {
   setupBorrowButton(resource);
 }
 
-
 // ==========================================
-// 11. RESOURCE NOT FOUND
+// 10. RESOURCE NOT FOUND
 // ==========================================
 
 function showResourceNotFound() {
-
   if (detailsCard) {
     detailsCard.hidden = true;
   }
@@ -507,153 +486,102 @@ function showResourceNotFound() {
     resourceNotFound.hidden = false;
   }
 
-  document.title =
-    "Resource Not Found | EcoShare";
+  document.title = "Resource Not Found | EcoShare";
 }
 
+// ==========================================
+// 11. AUTH NAVIGATION
+// ==========================================
+
+async function updateAuthNavigation() {
+  if (!authNavButton) {
+    return;
+  }
+
+  const {
+    data: { session },
+  } = await supabaseClient.auth.getSession();
+
+  if (session) {
+    authNavButton.innerHTML = `
+      <i class="fa-solid fa-user"></i>
+      Profile
+    `;
+
+    authNavButton.href = "../Phase 1/profile.html";
+  } else {
+    authNavButton.innerHTML = `
+      <i class="fa-solid fa-right-to-bracket"></i>
+      Login
+    `;
+
+    authNavButton.href = "../Phase 1/login.html";
+  }
+}
 
 // ==========================================
 // 12. MOBILE NAVIGATION
 // ==========================================
 
-if (
-  menuBtn &&
-  primaryNavigation
-) {
+if (menuBtn && primaryNavigation) {
+  menuBtn.addEventListener("click", () => {
+    const isOpen = primaryNavigation.classList.toggle("show");
 
-  menuBtn.addEventListener(
-    "click",
-    () => {
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
 
-      const isOpen =
-        primaryNavigation.classList.toggle(
-          "show"
-        );
-
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-
-      menuBtn.setAttribute(
-        "aria-label",
-        isOpen
-          ? "Close navigation menu"
-          : "Open navigation menu"
-      );
-
-
-      const icon =
-        menuBtn.querySelector("i");
-
-
-      if (icon) {
-
-        icon.classList.toggle(
-          "fa-bars",
-          !isOpen
-        );
-
-        icon.classList.toggle(
-          "fa-xmark",
-          isOpen
-        );
-      }
-    }
-  );
-
-
-  const navigationLinks =
-    primaryNavigation.querySelectorAll(
-      "a"
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation menu" : "Open navigation menu",
     );
 
+    const icon = menuBtn.querySelector("i");
+
+    if (icon) {
+      icon.classList.toggle("fa-bars", !isOpen);
+
+      icon.classList.toggle("fa-xmark", isOpen);
+    }
+  });
+
+  const navigationLinks = primaryNavigation.querySelectorAll("a");
 
   navigationLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      primaryNavigation.classList.remove("show");
 
-    link.addEventListener(
-      "click",
-      () => {
+      menuBtn.setAttribute("aria-expanded", "false");
 
-        primaryNavigation.classList.remove(
-          "show"
-        );
+      menuBtn.setAttribute("aria-label", "Open navigation menu");
 
+      const icon = menuBtn.querySelector("i");
 
-        menuBtn.setAttribute(
-          "aria-expanded",
-          "false"
-        );
+      if (icon) {
+        icon.classList.remove("fa-xmark");
 
-
-        menuBtn.setAttribute(
-          "aria-label",
-          "Open navigation menu"
-        );
-
-
-        const icon =
-          menuBtn.querySelector("i");
-
-
-        if (icon) {
-
-          icon.classList.remove(
-            "fa-xmark"
-          );
-
-          icon.classList.add(
-            "fa-bars"
-          );
-        }
-
+        icon.classList.add("fa-bars");
       }
-    );
-
+    });
   });
 }
-
 
 // ==========================================
 // 13. HEADER SCROLL EFFECT
 // ==========================================
 
-window.addEventListener(
-  "scroll",
-  () => {
-
-    if (!header) {
-      return;
-    }
-
-    header.classList.toggle(
-      "scrolled",
-      window.scrollY > 30
-    );
-
+window.addEventListener("scroll", () => {
+  if (!header) {
+    return;
   }
-);
 
+  header.classList.toggle("scrolled", window.scrollY > 30);
+});
 
 // ==========================================
 // 14. INITIALIZE PAGE
 // ==========================================
 
-const resourceId =
-  getResourceId();
+document.addEventListener("DOMContentLoaded", async () => {
+  await updateAuthNavigation();
 
-const resource =
-  getResourceById(resourceId);
-
-
-if (resource) {
-
-  displayResource(resource);
-
-} else {
-
-  showResourceNotFound();
-
-}
+  await loadResource();
+});

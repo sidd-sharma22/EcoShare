@@ -1,0 +1,740 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Lend a Resource | EcoShare</title>
+
+    <meta
+        name="description"
+        content="Share your unused resources with your community through EcoShare."
+    />
+
+
+    <!-- Google Fonts -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    />
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+
+    <!-- Global CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../Phase 1/style.css"
+    />
+
+
+    <!-- Lend Resource CSS -->
+
+    <link
+        rel="stylesheet"
+        href="lend-resource.css"
+    />
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         HEADER / NAVBAR
+         ================================================== -->
+
+    <header
+        class="header"
+        id="header"
+    >
+
+        <div class="container navbar">
+
+
+            <!-- Logo -->
+
+            <a
+                href="../Phase 1/index.html"
+                class="logo"
+                aria-label="EcoShare Home"
+            >
+
+                <img
+                    src="../assets/logo.png"
+                    alt="EcoShare"
+                />
+
+            </a>
+
+
+            <!-- Navigation -->
+
+            <nav
+                class="nav-links"
+                id="primary-navigation"
+                aria-label="Primary navigation"
+            >
+
+                <a
+                    href="../Phase 1/index.html"
+                    class="nav-link"
+                >
+                    Home
+                </a>
+
+
+                <a
+                    href="explore.html"
+                    class="nav-link"
+                >
+                    Explore
+                </a>
+
+
+                <a
+                    href="../Phase 1/index.html#how-it-works"
+                    class="nav-link"
+                >
+                    How It Works
+                </a>
+
+
+                <a
+                    href="../Phase 1/index.html#about"
+                    class="nav-link"
+                >
+                    About
+                </a>
+
+
+                <a
+                    href="../Phase 1/index.html#contact"
+                    class="nav-link"
+                >
+                    Contact
+                </a>
+
+
+                <a
+                    href="../Phase 1/login.html"
+                    class="login-nav-btn"
+                    id="authNavButton"
+                >
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </a>
+
+            </nav>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                class="menu-btn"
+                id="menu-btn"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="primary-navigation"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         MAIN CONTENT
+         ================================================== -->
+
+    <main>
+
+
+        <!-- Page Hero -->
+
+        <section class="page-hero">
+
+            <div class="container">
+
+                <div class="hero-badge">
+
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+
+                    Community Sharing
+
+                </div>
+
+
+                <h1>
+                    Lend a Resource
+                </h1>
+
+
+                <p>
+                    Share something you no longer need and give it a useful
+                    purpose in your community.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Lend Form Section -->
+
+        <section class="lend-section">
+
+            <div class="container lend-container">
+
+                <div class="lend-card">
+
+
+                    <!-- Form Header -->
+
+                    <div class="form-header">
+
+                        <div class="form-icon">
+
+                            <i class="fa-solid fa-box-open"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                Add Your Resource
+                            </h2>
+
+
+                            <p>
+                                Provide some details so others can find and
+                                request your resource.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Resource Form -->
+
+                    <form
+                        id="lendResourceForm"
+                        class="lend-form"
+                        novalidate
+                    >
+
+
+                        <!-- ==========================================
+                             RESOURCE TITLE
+                             ========================================== -->
+
+                        <div class="form-group">
+
+                            <label for="resourceTitle">
+
+                                Resource Title
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="resourceTitle"
+                                name="title"
+                                placeholder="e.g. Programming Books"
+                                maxlength="100"
+                                required
+                            />
+
+
+                            <small
+                                class="field-error"
+                                id="titleError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             DESCRIPTION
+                             ========================================== -->
+
+                        <div class="form-group">
+
+                            <label for="resourceDescription">
+
+                                Description
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <textarea
+                                id="resourceDescription"
+                                name="description"
+                                placeholder="Describe your resource, its condition, and anything borrowers should know..."
+                                maxlength="1000"
+                                rows="6"
+                                required
+                            ></textarea>
+
+
+                            <div class="character-count">
+
+                                <span id="descriptionCount">
+                                    0
+                                </span>
+
+                                /1000
+
+                            </div>
+
+
+                            <small
+                                class="field-error"
+                                id="descriptionError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             CATEGORY
+                             ========================================== -->
+
+                        <div class="form-group">
+
+                            <label for="resourceCategory">
+
+                                Category
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <select
+                                id="resourceCategory"
+                                name="category"
+                                required
+                            >
+
+                                <option value="">
+                                    Select a category
+                                </option>
+
+                                <option value="electronics">
+                                    Electronics
+                                </option>
+
+                                <option value="books">
+                                    Books
+                                </option>
+
+                                <option value="tools">
+                                    Tools
+                                </option>
+
+                                <option value="sports">
+                                    Sports
+                                </option>
+
+                                <option value="others">
+                                    Others
+                                </option>
+
+                            </select>
+
+
+                            <small
+                                class="field-error"
+                                id="categoryError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             LOCATION
+                             ========================================== -->
+
+                        <div class="form-group">
+
+                            <label for="resourceLocation">
+                                Location
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="resourceLocation"
+                                name="location"
+                                placeholder="e.g. Kottayam"
+                                maxlength="100"
+                            />
+
+
+                            <small
+                                class="field-error"
+                                id="locationError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             RESOURCE IMAGE
+                             ========================================== -->
+
+                        <div class="form-group">
+
+                            <label for="resourceImage">
+
+                                Resource Image
+
+                            </label>
+
+
+                            <div class="image-upload-wrapper">
+
+
+                                <!-- File Input -->
+
+                                <input
+                                    type="file"
+                                    id="resourceImage"
+                                    name="image"
+                                    accept="image/jpeg,image/png,image/webp"
+                                />
+
+
+                                <!-- Upload Area -->
+
+                                <label
+                                    for="resourceImage"
+                                    class="image-upload-area"
+                                    id="imageUploadArea"
+                                >
+
+                                    <div class="image-upload-icon">
+
+                                        <i
+                                            class="fa-solid fa-cloud-arrow-up"
+                                        ></i>
+
+                                    </div>
+
+
+                                    <strong>
+                                        Upload a resource image
+                                    </strong>
+
+
+                                    <span>
+                                        JPG, PNG or WEBP · Maximum 5 MB
+                                    </span>
+
+
+                                    <span
+                                        class="image-upload-filename"
+                                        id="imageFileName"
+                                    >
+                                        No image selected
+                                    </span>
+
+                                </label>
+
+
+                                <!-- Image Preview -->
+
+                                <div
+                                    class="image-preview"
+                                    id="imagePreview"
+                                    hidden
+                                >
+
+                                    <img
+                                        id="imagePreviewImg"
+                                        src=""
+                                        alt="Resource image preview"
+                                    />
+
+
+                                    <button
+                                        type="button"
+                                        id="removeImageButton"
+                                        class="remove-image-btn"
+                                        aria-label="Remove selected image"
+                                    >
+
+                                        <i class="fa-solid fa-xmark"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <small class="field-help">
+
+                                Upload a clear photo of the resource so
+                                borrowers can identify it easily.
+
+                            </small>
+
+
+                            <small
+                                class="field-error"
+                                id="imageError"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             INFORMATION BOX
+                             ========================================== -->
+
+                        <div class="form-info">
+
+                            <div class="info-icon">
+
+                                <i
+                                    class="fa-solid fa-circle-info"
+                                ></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Before you share
+                                </strong>
+
+
+                                <p>
+                                    Make sure the resource is available to
+                                    borrow and provide accurate information
+                                    about its condition.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ==========================================
+                             FORM MESSAGE
+                             ========================================== -->
+
+                        <div
+                            class="form-message"
+                            id="formMessage"
+                            role="alert"
+                            aria-live="polite"
+                        ></div>
+
+
+
+                        <!-- ==========================================
+                             FORM ACTIONS
+                             ========================================== -->
+
+                        <div class="form-actions">
+
+
+                            <a
+                                href="explore.html"
+                                class="btn btn-secondary"
+                            >
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                                Cancel
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="submitResourceBtn"
+                            >
+
+                                <i
+                                    class="fa-solid fa-hand-holding-heart"
+                                ></i>
+
+                                Share Resource
+
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         FOOTER
+         ================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+
+                <!-- Footer Brand -->
+
+                <div class="footer-brand">
+
+                    <a
+                        href="../Phase 1/index.html"
+                        class="footer-logo"
+                    >
+
+                        <img
+                            src="../assets/logo.png"
+                            alt="EcoShare"
+                        />
+
+                    </a>
+
+
+                    <p>
+                        Share more. Waste less. Build a better community
+                        together.
+                    </p>
+
+                </div>
+
+
+                <!-- Footer Links -->
+
+                <div class="footer-links">
+
+                    <a href="../Phase 1/index.html">
+                        Home
+                    </a>
+
+
+                    <a href="explore.html">
+                        Explore
+                    </a>
+
+
+                    <a href="../Phase 1/index.html#about">
+                        About
+                    </a>
+
+
+                    <a href="../Phase 1/index.html#contact">
+                        Contact
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; 2026 EcoShare. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ==================================================
+         SCRIPTS
+         ================================================== -->
+
+    <!-- Supabase -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- Supabase Client -->
+
+    <script src="../Phase 1/supabase.js"></script>
+
+
+    <!-- Lend Resource Logic -->
+
+    <script src="lend-resource.js"></script>
+
+
+</body>
+
+</html>

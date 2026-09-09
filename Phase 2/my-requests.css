@@ -1,0 +1,438 @@
+/* ==========================================
+   EcoShare — My Requests
+========================================== */
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.requests-hero {
+    padding: 110px 0 70px;
+    background: var(--color-background-soft);
+    border-bottom: var(--border-width) solid var(--color-border-light);
+}
+
+.requests-hero-content {
+    max-width: 760px;
+}
+
+.requests-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+
+    margin-bottom: var(--space-4);
+
+    color: var(--color-primary-dark);
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.requests-hero h1 {
+    margin-bottom: var(--space-4);
+}
+
+.requests-hero p {
+    max-width: 650px;
+    color: var(--color-text-secondary);
+    font-size: var(--font-lg);
+}
+
+
+/* ==========================================
+   REQUESTS SECTION
+========================================== */
+
+.requests-section {
+    padding: var(--space-16) 0;
+}
+
+.requests-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+
+    margin-bottom: var(--space-8);
+}
+
+.requests-header h2 {
+    margin-bottom: var(--space-2);
+}
+
+.requests-header p {
+    color: var(--color-text-secondary);
+}
+
+
+/* ==========================================
+   REQUEST LIST
+========================================== */
+
+.requests-list {
+    display: grid;
+    gap: var(--space-5);
+}
+
+
+/* ==========================================
+   REQUEST CARD
+========================================== */
+
+.request-card {
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    gap: var(--space-6);
+    align-items: center;
+
+    padding: var(--space-6);
+
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.request-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* ==========================================
+   REQUEST IMAGE
+========================================== */
+
+.request-image {
+    width: 180px;
+    height: 140px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: var(--color-background-soft);
+    border-radius: var(--radius-md);
+}
+
+.request-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.request-image i {
+    color: var(--color-text-muted);
+    font-size: 2rem;
+}
+
+
+/* ==========================================
+   REQUEST CONTENT
+========================================== */
+
+.request-content {
+    min-width: 0;
+}
+
+.request-category {
+    display: inline-block;
+
+    margin-bottom: var(--space-2);
+
+    color: var(--color-primary-dark);
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.request-content h3 {
+    margin-bottom: var(--space-2);
+
+    font-size: var(--font-xl);
+}
+
+.request-description {
+    margin-bottom: var(--space-4);
+
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.request-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+
+    color: var(--color-text-secondary);
+    font-size: var(--font-sm);
+}
+
+.request-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.request-status {
+    min-width: 120px;
+
+    text-align: center;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+
+    padding: 8px 14px;
+
+    border-radius: var(--radius-full);
+
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.status-pending {
+    background: var(--color-background-soft);
+    color: var(--color-primary-dark);
+}
+
+.status-approved {
+    background: var(--color-accent);
+    color: var(--color-primary-deep);
+}
+
+.status-rejected {
+    background: var(--color-background-soft);
+    color: var(--color-text-secondary);
+}
+
+.status-cancelled {
+    background: var(--color-background-soft);
+    color: var(--color-text-secondary);
+}
+
+
+/*/* ==========================================
+   REQUEST ACTIONS
+   ========================================== */
+
+.request-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.request-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.view-request-btn,
+.withdraw-request-btn {
+    flex: 1;
+    min-height: 46px;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+
+    font-size: var(--font-sm);
+    font-weight: var(--font-weight-semibold);
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+/* View Resource */
+
+.view-request-btn {
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.view-request-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+
+/* Withdraw Request */
+
+.withdraw-request-btn {
+    border: var(--border-width) solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text-secondary);
+}
+
+.withdraw-request-btn:hover {
+    background: #fff5f5;
+    border-color: #d9534f;
+    color: #c0392b;
+    transform: translateY(-1px);
+}
+
+.withdraw-request-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .request-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .view-request-btn,
+    .withdraw-request-btn {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-requests {
+    padding: 70px 20px;
+
+    text-align: center;
+
+    border: var(--border-width) dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-background-soft);
+}
+
+.empty-requests-icon {
+    margin-bottom: var(--space-5);
+
+    color: var(--color-primary);
+    font-size: 3rem;
+}
+
+.empty-requests h3 {
+    margin-bottom: var(--space-3);
+}
+
+.empty-requests p {
+    max-width: 520px;
+    margin: 0 auto var(--space-6);
+
+    color: var(--color-text-secondary);
+}
+
+
+/* ==========================================
+   ERROR STATE
+========================================== */
+
+.requests-error {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-background-soft);
+}
+
+.requests-error i {
+    margin-bottom: var(--space-4);
+
+    color: var(--color-text-secondary);
+    font-size: 2.5rem;
+}
+
+.requests-error h3 {
+    margin-bottom: var(--space-2);
+}
+
+.requests-error p {
+    color: var(--color-text-secondary);
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .request-card {
+        grid-template-columns: 140px 1fr;
+    }
+
+    .request-image {
+        width: 140px;
+        height: 120px;
+    }
+
+    .request-status {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .requests-hero {
+        padding: 90px 0 55px;
+    }
+
+    .requests-section {
+        padding: var(--space-12) 0;
+    }
+
+    .requests-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .request-card {
+        grid-template-columns: 1fr;
+    }
+
+    .request-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .request-status {
+        grid-column: auto;
+        justify-self: start;
+    }
+
+}
+
